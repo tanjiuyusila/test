@@ -17,7 +17,8 @@
           <!--<div v-for="(option,index) in nowTest.options">-->
             <!--{{option}}-->
           <!--</div>-->
-          <Radio :index="nowIndex" :title="nowTest.title" :options="nowTest.options"></Radio>
+          <!--<Radio :index="nowIndex" :title="nowTest.title" :options="nowTest.options"></Radio>-->
+          <Checkbox :index="nowIndex" :title="nowTest.title" :options="nowTest.options"></Checkbox>
         </el-main>
         <el-aside width="200px">
             <h1>全部试题（{{nowIndex}}/{{totalNum}}）</h1>
@@ -40,7 +41,8 @@
 </template>
 
 <script>
-  import Radio from '@/components/Radio';
+  // import Radio from '@/components/Radio';
+  import Checkbox from '@/components/Checkbox';
   export default {
     created(){
       this.totalNum = this.select.length + this.program.length;
@@ -60,25 +62,25 @@
             id:11,
             flag:1,
             title:'选择题1XXXXXXXXXX',
-            options:['aaaa','bbbb','cccc','dddd']
+            options:['aaaa','bbbb','cccc','ddd']
           },
           {
             id:22,
             flag:1,
             title:'选择题2XXXXXXXXXX',
-            options:['aaaa','bbbb','cccc','dddd']
+            options:['aaa','bbbb','cccc','dddd']
           },
           {
             id:33,
             flag:1,
             title:'选择题3XXXXXXXXXX',
-            options:['aaaa','bbbb','cccc','dddd']
+            options:['aaaa','bbb','cccc','dddd']
           },
           {
             id:44,
             flag:2,
             title:'选择题4XXXXXXXXXX',
-            options:['aaaa','bbbb','cccc','dddd']
+            options:['aaaa','bbbb','ccc','dddd']
           }
         ],
         program:[
@@ -110,7 +112,9 @@
       }
     },
     components:{
-      Radio,
+      // Radio,
+      Checkbox,
+
     }
   }
 </script>
