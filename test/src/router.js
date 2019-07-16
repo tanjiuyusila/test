@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import Test from './views/Test.vue';
 import SetTest from './views/SetTest.vue';
 import SingleTest from './views/SingleTest.vue';
+import TestDetail from './views/TestDetail.vue';
 
 Vue.use(Router);
 
@@ -31,6 +32,11 @@ export default new Router({
           name: 'singleTest',
           component: SingleTest
         },
+        {
+          path: 'testDetail/:id',
+          name: 'testDetail',
+          component: TestDetail
+        }
       ]
     }
   ],
