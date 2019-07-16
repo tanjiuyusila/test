@@ -24,7 +24,7 @@ export default new Router({
         {
           path: 'setTest',
           name: 'setTest',
-          component: SetTest,
+          component: SetTest
         },
         {
           path: 'singleTest',
