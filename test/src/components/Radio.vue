@@ -23,6 +23,7 @@
   import{mapState,mapMutations} from 'vuex';
   export default {
     created(){
+      console.log(111);
       this.selectNum=this.select.length;
       this.nowTest = this.select[0];
       // console.log(this.nowTest);
@@ -41,8 +42,8 @@
     methods:{
       radioChange(){
         this.radioAnswer = this.radio;
-        // this.$store.dispatch('saveRadio',[this.id,this.radio]);
-        console.log(this.radio)
+        this.$store.dispatch('saveRadio',[this.nowTest.id,this.radio]);
+        // console.log(this.radio)
       },
       changIndex(){
         this.radio='';
