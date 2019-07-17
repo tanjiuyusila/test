@@ -4,7 +4,7 @@
     <div>
       <span>{{nowTest.title}}</span>
       <el-radio-group v-model="radio" >
-        <el-radio :label="index" v-for="(option,index) in nowTest.options" :key=index @change="radioChange">{{option}}</el-radio>
+        <el-radio :label="index" v-for="(option,index) in nowTest.options" :key=index @change="radioChange()">{{option}}</el-radio>
       </el-radio-group>
     </div>
     <el-row>
@@ -23,7 +23,7 @@
   import{mapState,mapMutations} from 'vuex';
   export default {
     created(){
-      console.log(111);
+      // console.log(111);
       this.selectNum=this.select.length;
       this.nowTest = this.select[0];
       this.changIndex()
@@ -40,18 +40,30 @@
     methods:{
       radioChange(){
         this.radioAnswer = this.radio;
-        this.$store.dispatch('saveRadio',[this.nowTest.id,this.radio]);
-        // console.log(this.radio)
+        // this.$store.dispatch('saveRadio',[this.nowTest.id,this.radio]);
+        // console.log(1)
+        console.log(this.radio)
       },
       changIndex(){
         this.radio='';
+        // console.log(this.radio)
         this.nowTest = this.select[this.nowIndex-1];
         // console.log(this.nowTest.id);
         this.$store.dispatch('searchAnswer',[this.nowTest.id]);
+        // console.log(this.nowData);
+        if(this.nowData.length > 0){
+          // console.log(this.radio);
+          // console.log( this.nowData[0].user_answer);
+          this.radio = this.nowData[0].user_answer;
+          // console.log(this.radio);
+        }
+         
+          
+       
       },
     },
     computed:{
-      ...mapState([nowData])
+      ...mapState(['nowData'])
     },
     props:[
       'select',

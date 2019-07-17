@@ -19,9 +19,11 @@ export default new Vuex.Store({
     searchAnswer(state,id){
       // state.nowId = id;
       var a = state.radioData.filter((elem,index) => elem.sc_id == id);
-      console.log(a);
+      // console.log(a);
+      state.nowData = a;
       if(a.length > 0){
         state.nowData = a;
+
       }
     },
     saveRadio(state,data){
