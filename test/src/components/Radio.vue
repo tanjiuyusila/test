@@ -1,30 +1,58 @@
 <template>
   <div>
-    <h1>{{index}}.单选题</h1>
-    <span>{{title}}</span>
-    <el-radio-group v-model="radio" v-for="(option,index) in options" :key=index @change="radioChange">
-      <el-radio :label="index">{{option}}</el-radio>
-    </el-radio-group>
+    <h1>{{nowIndex}}.单选题</h1>
+    <div>
+      <span>{{nowTest.title}}</span>
+      <el-radio-group v-model="radio" >
+        <el-radio :label="index" v-for="(option,index) in nowTest.options" :key=index @change="radioChange">{{option}}</el-radio>
+      </el-radio-group>
+    </div>
+    <el-row>
+      <el-radio-group v-model="nowIndex" @change="changIndex()">
+        <el-col :span="6" class="testRow" v-for="index in selectNum" :key=index>
+          <el-radio-button :label="index" fill>{{index}}</el-radio-button>
+        </el-col>
+      </el-radio-group>
+    </el-row>
+
+
   </div>
 </template>
 
 <script>
+  import{mapState,mapMutations} from 'vuex';
   export default {
-    methods:{
-      radioChange(){
-        console.log(this.radio)
-      }
+    created(){
+      this.selectNum=this.select.length;
+      this.nowTest = this.select[0];
+      // console.log(this.nowTest);
+      // console.log(this.selectNum);
+      this.changIndex()
     },
     data(){
       return{
-        radio:''
+        selectNum:0,
+        radio:'',
+        radioAnswer:'',
+        nowIndex:1,
+        nowTest:{},
       }
-
+    },
+    methods:{
+      radioChange(){
+        this.radioAnswer = this.radio;
+        // this.$store.dispatch('saveRadio',[this.id,this.radio]);
+        console.log(this.radio)
+      },
+      changIndex(){
+        this.radio='';
+        this.nowTest = this.select[this.nowIndex-1]
+        // console.log(this.nowIndex);
+      },
     },
     props:[
+      'select',
       'index',
-      'title',
-      'options'
     ],
   }
 </script>

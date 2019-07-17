@@ -3,55 +3,55 @@
 
     <el-container class="container" style="height: 500px; border: 1px solid #eee">
       <el-header>
-        <span>
-          套题{{this.paperId}}
-        </span>
-        <span>
-          计时：
-        </span>
+        <el-col :span="6">套题{{this.paperId}}</el-col>
+        <el-col :span="6" :offset="12">
+          <el-button type="primary" plain size="mini" @click="changeToSelect">单选题</el-button>
+          <el-button type="primary" plain size="mini">多选题</el-button>
+          <el-button type="primary" plain size="mini">编程题</el-button>
+        </el-col>
+
+
       </el-header>
       <el-main height='500px'>
-         <Radio :index="nowIndex" :title="nowTest.title" :options="nowTest.options" v-show="radioShow"></Radio>
-          <Checkbox :index="nowIndex" :title="nowTest.title" :options="nowTest.options" v-show="selectShow"></Checkbox>
-          <AnswerArea :index="nowIndex" :title="nowTest.title" v-show="programShow"></AnswerArea>
+          <Radio :index="nowIndex" v-show="radioShow" :select="select"></Radio>
+          <Checkbox :index="nowIndex_m" :multiple="multiple" v-show="selectShow"></Checkbox>
+          <AnswerArea :index="nowIndex" :program="program" v-show="programShow"></AnswerArea>
       </el-main>
 
       <el-footer>
-            <span>全部试题（{{now}}/{{totalNum}}）</span> 
+            <span>全部试题（{{now}}/{{totalNum}}）</span>
 
-            <el-tabs v-model="activeName" type="card" @tab-click="change">
-              <el-tab-pane label="单选题部分" name="t_select">
-                <el-row>
-                  <el-radio-group v-model="nowIndex" @change="changIndex()">
-                    <el-col :span="6" class="testRow" v-for="index in selectNum" :key=index>
-                        <el-radio-button :label="index" fill></el-radio-button>
-                    </el-col>
-                  </el-radio-group>
-                </el-row>
-              </el-tab-pane>
+            <!--<el-tabs v-model="activeName" type="card" @tab-click="change">-->
+              <!--<el-tab-pane label="单选题部分" name="t_select">-->
+                <!--<el-row>-->
+                  <!--<el-radio-group v-model="nowIndex" @change="changIndex()">-->
+                    <!--<el-col :span="6" class="testRow" v-for="index in selectNum" :key=index>-->
+                        <!--<el-radio-button :label="index" fill></el-radio-button>-->
+                    <!--</el-col>-->
+                  <!--</el-radio-group>-->
+                <!--</el-row>-->
+              <!--</el-tab-pane>-->
 
-              <el-tab-pane label="多选题部分" name="t_multiple">
-                <el-row>
-                  <el-radio-group v-model="nowIndex" @change="changIndex()">
-                    <el-col :span="6" class="testRow" v-for="index in multipleNum" :key=index>
-                        <el-radio-button :label="index" fill></el-radio-button>
-                    </el-col>
-                  </el-radio-group>
-                </el-row>
-              </el-tab-pane>
+              <!--<el-tab-pane label="多选题部分" name="t_multiple">-->
+                <!--<el-row>-->
+                  <!--<el-radio-group v-model="nowIndex" @change="changIndex()">-->
+                    <!--<el-col :span="6" class="testRow" v-for="index in multipleNum" :key=index>-->
+                        <!--<el-radio-button :label="index" fill></el-radio-button>-->
+                    <!--</el-col>-->
+                  <!--</el-radio-group>-->
+                <!--</el-row>-->
+              <!--</el-tab-pane>-->
 
-              <el-tab-pane label="在线编程题部分" name="t_program">
-                <el-row>
-                  <el-radio-group v-model="nowIndex" @change="changIndex()">
-                    <el-col :span="6" class="testRow" v-for="index in programNum" :key=index>
-                      <el-radio-button :label="index" ></el-radio-button>
-                    </el-col>
-                  </el-radio-group>
-                </el-row>
-              </el-tab-pane>
-            </el-tabs>
-            
-            
+              <!--<el-tab-pane label="在线编程题部分" name="t_program">-->
+                <!--<el-row>-->
+                  <!--<el-radio-group v-model="nowIndex" @change="changIndex()">-->
+                    <!--<el-col :span="6" class="testRow" v-for="index in programNum" :key=index>-->
+                      <!--<el-radio-button :label="index" ></el-radio-button>-->
+                    <!--</el-col>-->
+                  <!--</el-radio-group>-->
+                <!--</el-row>-->
+              <!--</el-tab-pane>-->
+            <!--</el-tabs>-->
       </el-footer>
     </el-container>
   </div>
@@ -67,14 +67,12 @@
       this.selectNum = this.select.length;
       this.programNum = this.program.length;
       this.multipleNum = this.multiple.length;
-      this.nowTest = this.select[0];
-      // console.log(this.totalNum);
-      // this.buttonRadio='1';
-
+      this.nowTest = this.select;
       this.changIndex();
     },
     data(){
       return{
+        radio : '',
         radioShow:true,
         selectShow:false,
         programShow:false,
@@ -82,6 +80,7 @@
         // buttonRadio:'1',
         paperId:this.$route.params.id,
         nowIndex:1,  //当前索引
+        nowIndex_m:1,
         totalNum:0,  //题数量
         nowTest:{},
         select:[
@@ -157,7 +156,7 @@
     methods:{
       changIndex(){
         // console.log(this.nowIndex-1);
-       
+
         if(this.activeName == 't_select'){
           this.nowTest = this.select[this.nowIndex-1];
         }else if(this.activeName == 't_multiple'){
@@ -165,6 +164,7 @@
         }else{
           this.nowTest = this.program[this.nowIndex-1];
         }
+
         // this.nowTest = this.select[this.nowIndex-1];
       },
       change(tab, event){
@@ -173,8 +173,8 @@
         // console.log(this.nowIndex-1);
 
         if(this.activeName == 't_select'){
-          this.radioShow=true;
-          this.selectShow=false;
+          this.radioShow=false;
+          this.selectShow=true;
           this.programShow=false;
           this.nowIndex = 1;
           this.nowTest = this.select[0];
@@ -202,7 +202,7 @@
 
     },
     computed:{
-      
+
       now(){
         if(this.activeName == 't_select'){
           return this.nowIndex;
@@ -212,7 +212,7 @@
           return this.nowIndex + this.select.length + this.multiple.length;
         }
       }
-        
+
     }
   }
 </script>
