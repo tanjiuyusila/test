@@ -11,28 +11,31 @@
       </el-header>
       <el-container>
         <el-main>
-          <!--<div>-->
-            <!--{{nowTest.title}}-->
-          <!--</div>-->
-          <!--<div v-for="(option,index) in nowTest.options">-->
-            <!--{{option}}-->
-          <!--</div>-->
-          <!--<Radio :index="nowIndex" :title="nowTest.title" :options="nowTest.options"></Radio>-->
-          <Checkbox :index="nowIndex" :title="nowTest.title" :options="nowTest.options"></Checkbox>
+
+          <Radio :index="nowIndex" :title="nowTest.title" :options="nowTest.options" v-show="radioShow"></Radio>
+          <Checkbox :index="nowIndex" :title="nowTest.title" :options="nowTest.options" v-show="selectShow"></Checkbox>
+          <AnswerArea :index="nowIndex" :title="nowTest.title" v-show="programShow"></AnswerArea>
+
         </el-main>
         <el-aside width="200px">
             <h1>全部试题（{{nowIndex}}/{{totalNum}}）</h1>
             <p>第一部分：选择题部分</p>
-
             <el-row>
               <el-radio-group v-model="nowIndex" @change="changIndex">
-                <el-col :span="6" class="testRow" v-for="index in totalNum">
+                <el-col :span="6" class="testRow" v-for="index in selectNum">
                     <el-radio-button :label="index" fill></el-radio-button>
-                  <!--<el-radio v-model="nowIndex" :label="index" name="button" border>{{index}}</el-radio>-->
-                  <!--<el-button type="primary" circle plain @click="clickButton(index)">{{index}}</el-button>-->
                 </el-col>
               </el-radio-group>
             </el-row>
+            <p>第二部分：在线编程题部分</p>
+            <el-row>
+              <el-radio-group v-model="nowIndex" @change="changIndex">
+                <el-col :span="6" class="testRow" v-for="index in programNum">
+                  <el-radio-button :label="index+selectNum" fill></el-radio-button>
+                </el-col>
+              </el-radio-group>
+            </el-row>
+
 
         </el-aside>
       </el-container>
@@ -41,18 +44,27 @@
 </template>
 
 <script>
-  // import Radio from '@/components/Radio';
+  import Radio from '@/components/Radio';
   import Checkbox from '@/components/Checkbox';
+  import AnswerArea from '@/components/AnswerArea';
   export default {
     created(){
       this.totalNum = this.select.length + this.program.length;
+      this.selectNum = this.select.length;
+      this.programNum = this.program.length;
       this.nowTest = this.select[0];
       // console.log(this.totalNum);
-      this.buttonRadio='1'
+      // this.buttonRadio='1';
+
+      this.changIndex();
     },
     data(){
       return{
-        buttonRadio:'1',
+        radioShow:false,
+        selectShow:true,
+        programShow:false,
+        // currentView: 'Radio',
+        // buttonRadio:'1',
         paperId:this.$route.params.id,
         nowIndex:1,  //当前索引
         totalNum:0,  //题数量
@@ -106,14 +118,29 @@
           // console.log(this.nowIndex);
           this.nowTest = this.select[this.nowIndex-1];
           // console.log(this.select[this.nowIndex])
+          if(this.nowTest.flag == 2){
+            this.radioShow=false;
+            this.selectShow=true;
+            this.programShow=false;
+          }else{
+            this.radioShow=true;
+            this.selectShow=false;
+            this.programShow=false;
+          }
         }else{
-          this.nowTest = this.program[this.nowIndex - this.select.length-1]
+          this.nowTest = this.program[this.nowIndex - this.select.length-1];
+          this.radioShow=false;
+          this.selectShow=false;
+          this.programShow=true;
         }
+
+
       }
     },
     components:{
-      // Radio,
+      Radio,
       Checkbox,
+      AnswerArea,
 
     }
   }
