@@ -26,8 +26,6 @@
       console.log(111);
       this.selectNum=this.select.length;
       this.nowTest = this.select[0];
-      // console.log(this.nowTest);
-      // console.log(this.selectNum);
       this.changIndex()
     },
     data(){
@@ -47,9 +45,13 @@
       },
       changIndex(){
         this.radio='';
-        this.nowTest = this.select[this.nowIndex-1]
-        // console.log(this.nowIndex);
+        this.nowTest = this.select[this.nowIndex-1];
+        // console.log(this.nowTest.id);
+        this.$store.dispatch('searchAnswer',[this.nowTest.id]);
       },
+    },
+    computed:{
+      ...mapState([nowData])
     },
     props:[
       'select',

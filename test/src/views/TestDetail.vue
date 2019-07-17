@@ -5,17 +5,17 @@
       <el-header>
         <el-col :span="6">套题{{this.paperId}}</el-col>
         <el-col :span="6" :offset="12">
-          <el-button type="primary" plain size="mini" @click="changeToSelect">单选题</el-button>
-          <el-button type="primary" plain size="mini">多选题</el-button>
-          <el-button type="primary" plain size="mini">编程题</el-button>
+          <el-button type="primary" plain size="mini" @click="changeToRadio">单选题</el-button>
+          <el-button type="primary" plain size="mini" @click="changeToSelect">多选题</el-button>
+          <el-button type="primary" plain size="mini" @click="changeToProgram">编程题</el-button>
         </el-col>
 
 
       </el-header>
       <el-main height='500px'>
-          <Radio :index="nowIndex" v-show="radioShow" :select="select"></Radio>
-          <Checkbox :index="nowIndex_m" :multiple="multiple" v-show="selectShow"></Checkbox>
-          <AnswerArea :index="nowIndex" :program="program" v-show="programShow"></AnswerArea>
+          <Radio :index="nowIndex" v-if="radioShow" :select="select"></Radio>
+          <Checkbox :index="nowIndex_m" :multiple="multiple" v-if="selectShow"></Checkbox>
+          <AnswerArea :index="nowIndex" :program="program" v-if="programShow"></AnswerArea>
       </el-main>
 
       <el-footer>
@@ -154,9 +154,22 @@
       }
     },
     methods:{
+      changeToRadio(){
+        this.radioShow=true;
+        this.selectShow=false;
+        this.programShow=false;
+      },
+      changeToSelect(){
+        this.radioShow=false;
+        this.selectShow=true;
+        this.programShow=false;
+      },
+      changeToProgram(){
+        this.radioShow=false;
+        this.selectShow=false;
+        this.programShow=true;
+      },
       changIndex(){
-        // console.log(this.nowIndex-1);
-
         if(this.activeName == 't_select'){
           this.nowTest = this.select[this.nowIndex-1];
         }else if(this.activeName == 't_multiple'){

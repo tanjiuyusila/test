@@ -17,7 +17,7 @@
     created(){
       this.nowTest = this.program[0];
       this.programNum = this.program.length;
-      console.log(this.nowTest);
+      // console.log(this.nowTest);
     },
     data(){
       return {

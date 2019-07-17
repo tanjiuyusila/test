@@ -5,25 +5,47 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    radioData:[],
+    radioData:[{
+      commit_date:new Date(),
+      sc_id: 33,
+      user_answer: 1
+    }],
     selectionData:[],
     programData:[],
     nowId:1,
     nowData:[],
   },
   mutations: {
-    // searchAnswer(state,id){
-    //   state.nowId = id;
-    // },
+    searchAnswer(state,id){
+      // state.nowId = id;
+      var a = state.radioData.filter((elem,index) => elem.sc_id == id);
+      console.log(a);
+      if(a.length > 0){
+        state.nowData = a;
+      }
+    },
     saveRadio(state,data){
-      state.radioData.push(data);
-      console.log(state.radioData);
+      // console.log(data);
+
+      var a = state.radioData.filter((elem,index) => elem.sc_id == data.sc_id);
+      // console.log(a);
+      if(a.length == 0){
+        state.radioData.push(data);
+      }else{
+        state.radioData.forEach((elem,index) => {
+          if(elem.sc_id == data.sc_id){
+            elem.user_answer = data.user_answer;
+            elem.commit_date = new Date();
+          }
+        })
+      }
+      // console.log(state.radioData);
     },
   },
   actions: {
-    // searchAnswer({commit},id){
-    //   commit('searchAnswer',id)
-    // },
+    searchAnswer({commit},id){
+      commit('searchAnswer',id)
+    },
     saveRadio({commit},[...args]){
       // console.log(args);
       var data = {
@@ -31,7 +53,7 @@ export default new Vuex.Store({
         user_answer:args[1],
         commit_date:new Date()
       };
-      // console.log(temp);
+      // console.log(data);
       commit('saveRadio',data);
      },
   },

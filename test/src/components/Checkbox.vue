@@ -18,7 +18,7 @@
 <script>
   export default {
     created(){
-      console.log(this.multiple);
+      // console.log(this.multiple);
       this.nowTest = this.multiple[0];
       this.multipleNum = this.multiple.length;
     },
