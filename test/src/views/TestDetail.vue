@@ -22,7 +22,7 @@
             <el-tabs v-model="activeName" type="card" @tab-click="change">
               <el-tab-pane label="单选题部分" name="t_select">
                 <el-row>
-                  <el-radio-group v-model="nowIndex" @change="changIndex">
+                  <el-radio-group v-model="nowIndex" @change="changIndex()">
                     <el-col :span="6" class="testRow" v-for="index in selectNum" :key=index>
                         <el-radio-button :label="index" fill></el-radio-button>
                     </el-col>
@@ -32,7 +32,7 @@
 
               <el-tab-pane label="多选题部分" name="t_multiple">
                 <el-row>
-                  <el-radio-group v-model="nowIndex" @change="changIndex">
+                  <el-radio-group v-model="nowIndex" @change="changIndex()">
                     <el-col :span="6" class="testRow" v-for="index in multipleNum" :key=index>
                         <el-radio-button :label="index" fill></el-radio-button>
                     </el-col>
@@ -42,7 +42,7 @@
 
               <el-tab-pane label="在线编程题部分" name="t_program">
                 <el-row>
-                  <el-radio-group v-model="nowIndex" @change="changIndex">
+                  <el-radio-group v-model="nowIndex" @change="changIndex()">
                     <el-col :span="6" class="testRow" v-for="index in programNum" :key=index>
                       <el-radio-button :label="index" ></el-radio-button>
                     </el-col>
@@ -156,25 +156,42 @@
     },
     methods:{
       changIndex(){
-        this.nowTest = this.select[this.nowIndex-1];
+        // console.log(this.nowIndex-1);
+       
+        if(this.activeName == 't_select'){
+          this.nowTest = this.select[this.nowIndex-1];
+        }else if(this.activeName == 't_multiple'){
+          this.nowTest = this.multiple[this.nowIndex-1];
+        }else{
+          this.nowTest = this.program[this.nowIndex-1];
+        }
+        // this.nowTest = this.select[this.nowIndex-1];
       },
       change(tab, event){
         // console.log(tab, event);
         // console.log(this.activeName);
+        // console.log(this.nowIndex-1);
+
         if(this.activeName == 't_select'){
           this.radioShow=true;
           this.selectShow=false;
           this.programShow=false;
+          this.nowIndex = 1;
+          this.nowTest = this.select[0];
         }else if(this.activeName == 't_multiple'){
           this.radioShow=false;
           this.selectShow=true;
           this.programShow=false;
           this.nowIndex = 1;
+          this.nowTest = this.multiple[0];
+
         }else{
           this.radioShow=false;
           this.selectShow=false;
           this.programShow=true;
           this.nowIndex = 1;
+          this.nowTest = this.program[0];
+
         }
       }
     },
