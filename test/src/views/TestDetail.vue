@@ -1,48 +1,7 @@
 <template>
   <div>
-    <!-- <el-container class="container">
-      <el-header>
-        <span>
-          套题{{this.paperId}}
-        </span>
-        <span>
-          计时：
-        </span>
-      </el-header>
-      <el-container>
-        <el-main>
 
-          <Radio :index="nowIndex" :title="nowTest.title" :options="nowTest.options" v-show="radioShow"></Radio>
-          <Checkbox :index="nowIndex" :title="nowTest.title" :options="nowTest.options" v-show="selectShow"></Checkbox>
-          <AnswerArea :index="nowIndex" :title="nowTest.title" v-show="programShow"></AnswerArea>
-
-        </el-main>
-        <el-aside width="200px">
-            <h1>全部试题（{{nowIndex}}/{{totalNum}}）</h1>
-            <p>第一部分：选择题部分</p>
-            <el-row>
-              <el-radio-group v-model="nowIndex" @change="changIndex">
-                <el-col :span="6" class="testRow" v-for="index in selectNum" :key=index>
-                    <el-radio-button :label="index" fill></el-radio-button>
-                </el-col>
-              </el-radio-group>
-            </el-row>
-            <p>第二部分：在线编程题部分</p>
-            <el-row>
-              <el-radio-group v-model="nowIndex" @change="changIndex">
-                <el-col :span="6" class="testRow" v-for="index in programNum" :key=index>
-                  <el-radio-button :label="index+selectNum" fill></el-radio-button>
-                </el-col>
-              </el-radio-group>
-            </el-row>
-
-
-        </el-aside>
-      </el-container>
-    </el-container> -->
-
-
-    <el-container class="container">
+    <el-container class="container" style="height: 500px; border: 1px solid #eee">
       <el-header>
         <span>
           套题{{this.paperId}}
@@ -56,33 +15,11 @@
           <Checkbox :index="nowIndex" :title="nowTest.title" :options="nowTest.options" v-show="selectShow"></Checkbox>
           <AnswerArea :index="nowIndex" :title="nowTest.title" v-show="programShow"></AnswerArea>
       </el-main>
-      <!-- <el-footer>
-            <span>全部试题（{{nowIndex}}/{{totalNum}}）</span> 
-            <span>第一部分：选择题部分</span>
-            <el-row>
-              <el-radio-group v-model="nowIndex" @change="changIndex">
-                <el-col :span="6" class="testRow" v-for="index in selectNum" :key=index>
-                    <el-radio-button :label="index" fill></el-radio-button>
-                </el-col>
-              </el-radio-group>
-            </el-row>
-            <p>第二部分：在线编程题部分</p>
-            <el-row>
-              <el-radio-group v-model="nowIndex" @change="changIndex">
-                <el-col :span="6" class="testRow" v-for="index in programNum" :key=index>
-                  <el-radio-button :label="index+selectNum" fill></el-radio-button>
-                </el-col>
-              </el-radio-group>
-            </el-row>
-      </el-footer> -->
-
-
 
       <el-footer>
             <span>全部试题（{{now}}/{{totalNum}}）</span> 
 
             <el-tabs v-model="activeName" type="card" @tab-click="change">
-            <!-- <el-tabs v-model="activeName" type="card"> -->
               <el-tab-pane label="单选题部分" name="t_select">
                 <el-row>
                   <el-radio-group v-model="nowIndex" @change="changIndex">
@@ -145,7 +82,6 @@
         // buttonRadio:'1',
         paperId:this.$route.params.id,
         nowIndex:1,  //当前索引
-        // now:1,
         totalNum:0,  //题数量
         nowTest:{},
         select:[
@@ -220,26 +156,7 @@
     },
     methods:{
       changIndex(){
-        //   console.log(this.nowIndex);
-        //   if(this.nowIndex <= this.select.length){
-        //     // console.log(this.nowIndex);
-        //     this.nowTest = this.select[this.nowIndex-1];
-        //     // console.log(this.select[this.nowIndex])
-        //     if(this.nowTest.flag == 2){
-        //       this.radioShow=false;
-        //       this.selectShow=true;
-        //       this.programShow=false;
-        //     }else{
-        //       this.radioShow=true;
-        //       this.selectShow=false;
-        //       this.programShow=false;
-        //     }
-        //   }else{
-        //     this.nowTest = this.program[this.nowIndex - this.select.length-1];
-        //     this.radioShow=false;
-        //     this.selectShow=false;
-        //     this.programShow=true;
-        //   }
+        this.nowTest = this.select[this.nowIndex-1];
       },
       change(tab, event){
         // console.log(tab, event);
@@ -248,21 +165,16 @@
           this.radioShow=true;
           this.selectShow=false;
           this.programShow=false;
-          // this.now = this.nowIndex;
         }else if(this.activeName == 't_multiple'){
           this.radioShow=false;
           this.selectShow=true;
           this.programShow=false;
           this.nowIndex = 1;
-          // this.now = this.nowIndex + this.select.length;
         }else{
           this.radioShow=false;
           this.selectShow=false;
           this.programShow=true;
           this.nowIndex = 1;
-
-          // this.now = this.nowIndex + this.select.length + this.multiple.length;
-
         }
       }
     },
@@ -274,22 +186,6 @@
     },
     computed:{
       
-      // now:{
-      //   set:function(){
-           
-        //   if(this.activeName == 't_select'){
-        //     this.now = this.nowIndex;
-        //   }else if(this.activeName == 't_multiple'){
-        //     this.now = this.nowIndex + this.select.length;
-        //   }else{
-        //     this.now = this.nowIndex + this.select.length + this.multiple.length;
-        //   }
-        // },
-      //   get(){
-      //     return this.now;
-      //  }
-      // }
-
       now(){
         if(this.activeName == 't_select'){
           return this.nowIndex;
