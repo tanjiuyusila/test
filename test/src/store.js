@@ -28,7 +28,6 @@ export default new Vuex.Store({
     },
     saveRadio(state,data){
       // console.log(data);
-
       var a = state.radioData.filter((elem,index) => elem.sc_id == data.sc_id);
       // console.log(a);
       if(a.length == 0){
@@ -43,6 +42,9 @@ export default new Vuex.Store({
       }
       // console.log(state.radioData);
     },
+    saveSelect(state,data){
+      console.log(data);
+    }
   },
   actions: {
     searchAnswer({commit},id){
@@ -57,6 +59,16 @@ export default new Vuex.Store({
       };
       // console.log(data);
       commit('saveRadio',data);
-     },
+    },
+    saveSelect({commit},[...args]){
+      // var data = {
+      //   sc_id:args[0],
+      //   // user_answer:args[1],
+      //   commit_date:new Date()
+      // };
+      console.log(args);
+     }
+     
   },
+ 
 });
