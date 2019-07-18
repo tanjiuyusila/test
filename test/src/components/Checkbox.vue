@@ -19,7 +19,6 @@
   import{ mapState } from 'vuex';
   export default {
     created(){
-      // console.log(this.multiple);
       this.nowTest = this.multiple[0];
       this.multipleNum = this.multiple.length;
       this.changIndex();
@@ -48,7 +47,6 @@
         this.$store.dispatch('searchSelect',[this.nowTest.id]);
         console.log(this.nowData);
         if(this.nowData.length > 0){
-          // console.log(1111)
           this.checkList = this.nowData[0].user_answer;
         }
       },
