@@ -14,6 +14,7 @@
         </el-col>
       </el-radio-group>
     </el-row>
+    <el-button type="primary" @click="nextIndex">下一页</el-button>
 
 
   </div>
@@ -38,6 +39,17 @@
       }
     },
     methods:{
+      nextIndex(){
+        if(this.nowIndex < this.selectNum){
+          console.log(this.nowIndex);
+          console.log(this.selectNum);
+          this.nowIndex ++ ;
+          this.changIndex()
+        }else{
+          console.log('next');
+          // $store.state.count++
+        }
+      },
       radioChange(){
         this.radioAnswer = this.radio;
         this.$store.dispatch('saveRadio',[this.nowTest.id,this.radio]);

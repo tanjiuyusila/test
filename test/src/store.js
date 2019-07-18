@@ -5,16 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    radioData:[{
-      commit_date:new Date(),
-      sc_id: 33,
-      user_answer: 1
-    }],
-    selectionData:[{
-      commit_date:new Date(),
-      sc_id: 31,
-      user_answer: [2]
-    }],
+    radioData:[],
+    selectionData:[],
     programData:[],
     nowId:1,
     nowData:[],

@@ -4,7 +4,20 @@
     <el-container class="container" style="height: 500px; border: 1px solid #eee">
       <el-header>
         <el-col :span="6">套题{{this.paperId}}</el-col>
-        <el-col :span="8" :offset="10">
+        <el-col :span="12" :offset="6">
+
+          <!--<el-radio-group v-model="currentView" size="mini" @chang="changeCurrentView()>-->
+            <!--<el-radio label="1" border>单选题</el-radio>-->
+            <!--&lt;!&ndash;<el-radio label="2" border >多选题</el-radio>&ndash;&gt;-->
+            <!--&lt;!&ndash;<el-radio label="3" border>编程题</el-radio>&ndash;&gt;-->
+          <!--</el-radio-group>-->
+          <!--<el-row>-->
+            <!--<el-radio-group v-model="currentView" @chang="changeCurrentView">-->
+              <!--<el-radio-button label="1">单选题</el-radio-button>-->
+              <!--<el-radio-button label="2">多选题</el-radio-button>-->
+              <!--<el-radio-button label="3">编程题</el-radio-button>-->
+            <!--</el-radio-group>-->
+          <!--</el-row>-->
           <el-button type="primary" plain size="mini" @click="changeToRadio">单选题</el-button>
           <el-button type="primary" plain size="mini" @click="changeToSelect">多选题</el-button>
           <el-button type="primary" plain size="mini" @click="changeToProgram">编程题</el-button>
@@ -14,44 +27,12 @@
       </el-header>
       <el-main height='500px'>
           <Radio :index="nowIndex" v-if="radioShow" :select="select"></Radio>
-          <Checkbox :index="nowIndex_m" :multiple="multiple" v-if="selectShow"></Checkbox>
+          <Checkbox :index="nowIndex" :multiple="multiple" v-if="selectShow"></Checkbox>
           <AnswerArea :index="nowIndex" :program="program" v-if="programShow"></AnswerArea>
       </el-main>
 
       <el-footer>
             <span>全部试题（{{now}}/{{totalNum}}）</span>
-
-            <!--<el-tabs v-model="activeName" type="card" @tab-click="change">-->
-              <!--<el-tab-pane label="单选题部分" name="t_select">-->
-                <!--<el-row>-->
-                  <!--<el-radio-group v-model="nowIndex" @change="changIndex()">-->
-                    <!--<el-col :span="6" class="testRow" v-for="index in selectNum" :key=index>-->
-                        <!--<el-radio-button :label="index" fill></el-radio-button>-->
-                    <!--</el-col>-->
-                  <!--</el-radio-group>-->
-                <!--</el-row>-->
-              <!--</el-tab-pane>-->
-
-              <!--<el-tab-pane label="多选题部分" name="t_multiple">-->
-                <!--<el-row>-->
-                  <!--<el-radio-group v-model="nowIndex" @change="changIndex()">-->
-                    <!--<el-col :span="6" class="testRow" v-for="index in multipleNum" :key=index>-->
-                        <!--<el-radio-button :label="index" fill></el-radio-button>-->
-                    <!--</el-col>-->
-                  <!--</el-radio-group>-->
-                <!--</el-row>-->
-              <!--</el-tab-pane>-->
-
-              <!--<el-tab-pane label="在线编程题部分" name="t_program">-->
-                <!--<el-row>-->
-                  <!--<el-radio-group v-model="nowIndex" @change="changIndex()">-->
-                    <!--<el-col :span="6" class="testRow" v-for="index in programNum" :key=index>-->
-                      <!--<el-radio-button :label="index" ></el-radio-button>-->
-                    <!--</el-col>-->
-                  <!--</el-radio-group>-->
-                <!--</el-row>-->
-              <!--</el-tab-pane>-->
-            <!--</el-tabs>-->
       </el-footer>
     </el-container>
   </div>
@@ -72,15 +53,13 @@
     },
     data(){
       return{
-        radio : '',
+        // radio : '',
+        currentView:1,
         radioShow:true,
         selectShow:false,
         programShow:false,
-        // currentView: 'Radio',
-        // buttonRadio:'1',
         paperId:this.$route.params.id,
         nowIndex:1,  //当前索引
-        nowIndex_m:1,
         totalNum:0,  //题数量
         nowTest:{},
         select:[
@@ -154,6 +133,20 @@
       }
     },
     methods:{
+      changeCurrentView(){
+        console.log(this.currentView);
+        switch (this.currentView) {
+          case 1:
+            this.changeToRadio();
+            break;
+          case 2:
+            this.changeToSelect();
+            break;
+          case 3:
+            this.changeToProgram();
+            break;
+        }
+      },
       changeToRadio(){
         this.radioShow=true;
         this.selectShow=false;
