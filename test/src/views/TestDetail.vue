@@ -6,28 +6,21 @@
         <el-col :span="6">套题{{this.paperId}}</el-col>
         <el-col :span="12" :offset="6">
 
-          <!--<el-row>-->
-            <!--<el-radio-group v-model="currentView" @chang="changeCurrentView">-->
-              <!--<el-radio-button label="1">单选题</el-radio-button>-->
-              <!--<el-radio-button label="2">多选题</el-radio-button>-->
-              <!--<el-radio-button label="3">编程题</el-radio-button>-->
-            <!--</el-radio-group>-->
-          <!--</el-row>-->
-          <el-button type="primary" plain size="mini" @click="changeToRadio">单选题</el-button>
-          <el-button type="primary" plain size="mini" @click="changeToSelect">多选题</el-button>
-          <el-button type="primary" plain size="mini" @click="changeToProgram">编程题</el-button>
-        </el-col>
+          <el-radio-group v-model="activeName" @change="handleChange">
+            <el-radio-button v-for="(elem,index) in examCategory" :label="index" :key="index">{{elem}}</el-radio-button>
+          </el-radio-group>
 
+        </el-col>
 
       </el-header>
       <el-main height='500px'>
-          <Radio :index="nowIndex" v-if="radioShow" :select="select"></Radio>
-          <Checkbox :index="nowIndex" :multiple="multiple" v-if="selectShow"></Checkbox>
+          <Radio :index="nowIndex" v-if="radioShow" :select="select" :totalNum="categoryNum" @plusOne="plusOne"></Radio>
+          <Checkbox :index="nowIndex" :multiple="multiple" v-if="selectShow" @plusOne="plusOne"></Checkbox>
           <AnswerArea :index="nowIndex" :program="program" v-if="programShow"></AnswerArea>
       </el-main>
 
       <el-footer>
-            <span>全部试题（{{now}}/{{totalNum}}）</span>
+            <!--<span>全部试题（{{now}}/{{totalNum}}）</span>-->
       </el-footer>
     </el-container>
   </div>
@@ -37,6 +30,7 @@
   import Radio from '@/components/Radio';
   import Checkbox from '@/components/Checkbox';
   import AnswerArea from '@/components/AnswerArea';
+  import {mapState,mapGetters} from "vuex";
   export default {
     created(){
       this.totalNum = this.select.length + this.program.length + this.multiple.length;
@@ -44,12 +38,14 @@
       this.programNum = this.program.length;
       this.multipleNum = this.multiple.length;
       this.nowTest = this.select;
-      this.changIndex();
+      // this.changIndex();
+      this.categoryNum = this.examCategory.length;
+      this.activeName = 0;
     },
     data(){
       return{
         // radio : '',
-        currentView:1,
+        // currentView:1,
         radioShow:true,
         selectShow:false,
         programShow:false,
@@ -124,24 +120,29 @@
             title:'fill4'
           }
         ],
-        activeName:"t_select",
+        examCategory:['单选题','多选题','编程题'],
+        activeName:0,
       }
     },
     methods:{
-      changeCurrentView(){
-        console.log(this.currentView);
-        switch (this.currentView) {
-          case 1:
+      plusOne(){
+        this.activeName += 1;
+        this.handleChange();
+      },
+      handleChange(tab, event) {
+        switch(this.examCategory[this.activeName]){
+          case  '单选题':
             this.changeToRadio();
             break;
-          case 2:
+          case  '多选题':
             this.changeToSelect();
             break;
-          case 3:
+          case  '编程题':
             this.changeToProgram();
             break;
         }
       },
+
       changeToRadio(){
         this.radioShow=true;
         this.selectShow=false;
@@ -157,64 +158,12 @@
         this.selectShow=false;
         this.programShow=true;
       },
-      changIndex(){
-        if(this.activeName == 't_select'){
-          this.nowTest = this.select[this.nowIndex-1];
-        }else if(this.activeName == 't_multiple'){
-          this.nowTest = this.multiple[this.nowIndex-1];
-        }else{
-          this.nowTest = this.program[this.nowIndex-1];
-        }
-
-        // this.nowTest = this.select[this.nowIndex-1];
-      },
-      change(tab, event){
-        // console.log(tab, event);
-        // console.log(this.activeName);
-        // console.log(this.nowIndex-1);
-
-        if(this.activeName == 't_select'){
-          this.radioShow=false;
-          this.selectShow=true;
-          this.programShow=false;
-          this.nowIndex = 1;
-          this.nowTest = this.select[0];
-        }else if(this.activeName == 't_multiple'){
-          this.radioShow=false;
-          this.selectShow=true;
-          this.programShow=false;
-          this.nowIndex = 1;
-          this.nowTest = this.multiple[0];
-
-        }else{
-          this.radioShow=false;
-          this.selectShow=false;
-          this.programShow=true;
-          this.nowIndex = 1;
-          this.nowTest = this.program[0];
-
-        }
-      }
     },
     components:{
       Radio,
       Checkbox,
       AnswerArea,
-
     },
-    computed:{
-
-      now(){
-        if(this.activeName == 't_select'){
-          return this.nowIndex;
-        }else if(this.activeName == 't_multiple'){
-          return this.nowIndex + this.select.length;
-        }else{
-          return this.nowIndex + this.select.length + this.multiple.length;
-        }
-      }
-
-    }
   }
 </script>
 

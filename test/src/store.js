@@ -8,7 +8,7 @@ export default new Vuex.Store({
     radioData:[],
     selectionData:[],
     programData:[],
-    nowId:1,
+    // nowId:1,
     nowData:[],
   },
   mutations: {
@@ -94,5 +94,8 @@ export default new Vuex.Store({
       // console.log(data);
       commit('saveCheckbox',data);
     },
+
+
   },
+
 });

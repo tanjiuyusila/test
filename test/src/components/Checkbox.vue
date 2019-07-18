@@ -42,7 +42,17 @@
           this.nowIndex ++ ;
           this.changIndex()
         }else{
-          console.log('next')
+          this.$emit('plusOne');
+        }
+      },
+      nextIndex(){
+        // console.log(this.nowIndex);
+        // console.log(this.multipleNum);
+        if(this.nowIndex < this.multipleNum){
+          this.nowIndex ++ ;
+          this.changIndex()
+        }else{
+          this.$emit('plusOne');
         }
       },
       checkBoxChange(){
