@@ -1,10 +1,5 @@
 var t_User_program_model = require('../models/t_user_program_model');
 
-exports.p_read = function(req,res,next){
-    t_User_program_model.p_m_read(function(err,data){
-        res.json(data);
-    })
-};
 exports.p_write = function(req,res,next){
     var up = req.body.up_id;
     var token = req.body.token_id;
