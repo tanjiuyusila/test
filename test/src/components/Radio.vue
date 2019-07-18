@@ -57,9 +57,6 @@
           this.radio = this.nowData[0].user_answer;
           // console.log(this.radio);
         }
-         
-          
-       
       },
     },
     computed:{

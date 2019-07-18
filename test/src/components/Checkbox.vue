@@ -2,7 +2,7 @@
   <div>
     <h1>{{nowIndex}}.多选题</h1>
     <span>{{nowTest.title}}</span>
-    <el-checkbox-group v-model="checkList" v-for="(option,index) in nowTest.options" :key=index @change="selectChange()">
+    <el-checkbox-group v-model="checkList" v-for="(option,index) in nowTest.options" :key=index @change="checkBoxChange">
       <el-checkbox :label="index" :key="index">{{option}}</el-checkbox>
     </el-checkbox-group>
     <el-row>
@@ -16,10 +16,9 @@
 </template>
 
 <script>
-  import{mapState,mapMutations} from 'vuex';
+  import{ mapState } from 'vuex';
   export default {
     created(){
-      // console.log(this.multiple);
       this.nowTest = this.multiple[0];
       this.multipleNum = this.multiple.length;
       this.changIndex();
@@ -37,17 +36,23 @@
       'multiple',
     ],
     methods:{
-      selectChange(){
-        console.log(this.checkList);
-        this.$store.dispatch('saveSelect',[this.nowTest.id,this.checkList]);
-
-      
+      checkBoxChange(){
+        // console.log(this.checkList);
+        this.$store.dispatch('saveCheckbox',[this.nowTest.id,this.checkList]);
       },
       changIndex(){
         this.checkList=[];
-        this.nowTest = this.multiple[this.nowIndex-1]
+        this.nowTest = this.multiple[this.nowIndex-1];
         // console.log(this.nowIndex);
+        this.$store.dispatch('searchSelect',[this.nowTest.id]);
+        console.log(this.nowData);
+        if(this.nowData.length > 0){
+          this.checkList = this.nowData[0].user_answer;
+        }
       },
+    },
+    computed:{
+      ...mapState(['nowData'])
     }
   }
 </script>
