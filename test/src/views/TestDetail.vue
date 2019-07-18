@@ -6,11 +6,6 @@
         <el-col :span="6">套题{{this.paperId}}</el-col>
         <el-col :span="12" :offset="6">
 
-          <!--<el-radio-group v-model="currentView" size="mini" @chang="changeCurrentView()>-->
-            <!--<el-radio label="1" border>单选题</el-radio>-->
-            <!--&lt;!&ndash;<el-radio label="2" border >多选题</el-radio>&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-radio label="3" border>编程题</el-radio>&ndash;&gt;-->
-          <!--</el-radio-group>-->
           <!--<el-row>-->
             <!--<el-radio-group v-model="currentView" @chang="changeCurrentView">-->
               <!--<el-radio-button label="1">单选题</el-radio-button>-->
