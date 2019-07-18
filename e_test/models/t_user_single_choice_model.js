@@ -1,9 +1,9 @@
 var db = require("./db.js");
 
 
-exports.s_m_read = function(callback){
-    var sql = "select * from t_user_single_choice";
-    db.query(sql,[],callback);
+exports.s_m_read = function(id,callback){
+    var sql = "select * from t_single_choice where exer_id = ?";
+    db.query(sql,[id],callback);
 }
 
 exports.s_m_write = function(usc,tocken,sc,answer,date,callback){
