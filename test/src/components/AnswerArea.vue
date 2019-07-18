@@ -1,14 +1,7 @@
 <template>
   <div>
     <h1>{{nowIndex}}.编程题</h1>
-    <span>{{nowTest.title}}</span>
-    <el-row>
-      <el-radio-group v-model="nowIndex" @change="changIndex()">
-        <el-col :span="6" class="testRow" v-for="index in programNum" :key=index>
-          <el-radio-button :label="index" fill>{{index}}</el-radio-button>
-        </el-col>
-      </el-radio-group>
-    </el-row>
+
   </div>
 </template>
 

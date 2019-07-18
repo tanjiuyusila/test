@@ -14,16 +14,14 @@
         </el-col>
       </el-radio-group>
     </el-row>
-
-
+    <el-button type="primary" @click="nextIndex">下一页</el-button>
   </div>
 </template>
 
 <script>
-  import{mapState,mapMutations} from 'vuex';
+  import{mapState,mapGetters} from 'vuex';
   export default {
     created(){
-      // console.log(111);
       this.selectNum=this.select.length;
       this.nowTest = this.select[0];
       this.changIndex()
@@ -38,33 +36,36 @@
       }
     },
     methods:{
+      nextIndex(){
+
+        if(this.nowIndex < this.selectNum){
+          this.nowIndex ++ ;
+          this.changIndex()
+        }else{
+            this.$emit('plusOne');
+        }
+      },
       radioChange(){
         this.radioAnswer = this.radio;
         this.$store.dispatch('saveRadio',[this.nowTest.id,this.radio]);
-        // console.log(1)
         console.log(this.radio)
       },
       changIndex(){
         this.radio='';
-        // console.log(this.radio)
         this.nowTest = this.select[this.nowIndex-1];
-        // console.log(this.nowTest.id);
         this.$store.dispatch('searchAnswer',[this.nowTest.id]);
-        // console.log(this.nowData);
         if(this.nowData.length > 0){
-          // console.log(this.radio);
-          // console.log( this.nowData[0].user_answer);
           this.radio = this.nowData[0].user_answer;
-          // console.log(this.radio);
         }
       },
     },
     computed:{
-      ...mapState(['nowData'])
+      ...mapState(['nowData']),
     },
     props:[
       'select',
       'index',
+      'totalNum',
     ],
   }
 </script>

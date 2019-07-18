@@ -2,8 +2,8 @@
   <div>
     <h1>{{nowIndex}}.多选题</h1>
     <span>{{nowTest.title}}</span>
-    <el-checkbox-group v-model="checkList" v-for="(option,index) in nowTest.options" :key=index @change="checkBoxChange">
-      <el-checkbox :label="index" :key="index">{{option}}</el-checkbox>
+    <el-checkbox-group v-model="checkList" >
+      <el-checkbox :label="index" v-for="(option,index) in nowTest.options" :key=index @change="checkBoxChange">{{option}}</el-checkbox>
     </el-checkbox-group>
     <el-row>
       <el-radio-group v-model="nowIndex" @change="changIndex()">
@@ -12,6 +12,7 @@
         </el-col>
       </el-radio-group>
     </el-row>
+    <el-button type="primary" @click="nextIndex">下一页</el-button>
   </div>
 </template>
 
@@ -36,8 +37,25 @@
       'multiple',
     ],
     methods:{
+      nextIndex(){
+        if(this.nowIndex < this.multipleNum){
+          this.nowIndex ++ ;
+          this.changIndex()
+        }else{
+          this.$emit('plusOne');
+        }
+      },
+      nextIndex(){
+        // console.log(this.nowIndex);
+        // console.log(this.multipleNum);
+        if(this.nowIndex < this.multipleNum){
+          this.nowIndex ++ ;
+          this.changIndex()
+        }else{
+          this.$emit('plusOne');
+        }
+      },
       checkBoxChange(){
-        // console.log(this.checkList);
         this.$store.dispatch('saveCheckbox',[this.nowTest.id,this.checkList]);
       },
       changIndex(){
