@@ -4,7 +4,7 @@
     <el-container class="container" style="height: 500px; border: 1px solid #eee">
       <el-header>
         <el-col :span="6">套题{{this.paperId}}</el-col>
-        <el-col :span="6" :offset="12">
+        <el-col :span="8" :offset="10">
           <el-button type="primary" plain size="mini" @click="changeToRadio">单选题</el-button>
           <el-button type="primary" plain size="mini" @click="changeToSelect">多选题</el-button>
           <el-button type="primary" plain size="mini" @click="changeToProgram">编程题</el-button>
@@ -111,23 +111,23 @@
         ],
         multiple:[
           {
-            id:1,
+            id:21,
             flag:2,
             title:'多选题1XXXXXXXXXX',
             options:['aaaa','bbbb','ccc','dddd']
           },
            {
-            id:1,
+            id:31,
             flag:2,
             title:'多选题2XXXXXXXXXX',
             options:['aaaa','bbbb','ccc','dddd']
           }, {
-            id:1,
+            id:41,
             flag:2,
             title:'多选题3XXXXXXXXXX',
             options:['aaaa','bbbb','ccc','dddd']
           }, {
-            id:1,
+            id:51,
             flag:2,
             title:'多选题4XXXXXXXXXX',
             options:['aaaa','bbbb','ccc','dddd']

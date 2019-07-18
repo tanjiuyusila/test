@@ -40,7 +40,7 @@
     methods:{
       radioChange(){
         this.radioAnswer = this.radio;
-        // this.$store.dispatch('saveRadio',[this.nowTest.id,this.radio]);
+        this.$store.dispatch('saveRadio',[this.nowTest.id,this.radio]);
         // console.log(1)
         console.log(this.radio)
       },
@@ -57,9 +57,6 @@
           this.radio = this.nowData[0].user_answer;
           // console.log(this.radio);
         }
-         
-          
-       
       },
     },
     computed:{
