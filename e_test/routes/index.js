@@ -19,7 +19,7 @@ router.post('/single_w',t_User_single_choice.s_write);
 router.post('/multiple_r',t_User_multiple_choice.m_read);
 router.post('/multiple_w',t_User_multiple_choice.m_write);
 
-router.post('/program_r',t_User_program.p_read);
+router.get('/program_r',t_User_program.p_read);
 router.post('/program_w',t_User_program.p_write);
 
 

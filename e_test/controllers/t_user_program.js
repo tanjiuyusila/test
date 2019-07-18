@@ -1,10 +1,8 @@
 var t_User_program_model = require('../models/t_user_program_model');
 
 exports.p_read = function(req,res,next){
-    res.render('SetTest.ejs');
-
     t_User_program_model.p_m_read(function(err,data){
-        console.log(data);
+        res.json(data);
     })
 }
 
