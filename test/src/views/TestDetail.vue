@@ -19,18 +19,15 @@
           <AnswerArea :index="nowIndex" :program="program" v-if="programShow"></AnswerArea>
       </el-main>
 
-      <el-footer>
-            <!--<span>全部试题（{{now}}/{{totalNum}}）</span>-->
-      </el-footer>
     </el-container>
   </div>
 </template>
 
 <script>
+  import axios from 'axios';
   import Radio from '@/components/Radio';
   import Checkbox from '@/components/Checkbox';
   import AnswerArea from '@/components/AnswerArea';
-  import {mapState,mapGetters} from "vuex";
   export default {
     created(){
       this.totalNum = this.select.length + this.program.length + this.multiple.length;
@@ -38,9 +35,12 @@
       this.programNum = this.program.length;
       this.multipleNum = this.multiple.length;
       this.nowTest = this.select;
-      // this.changIndex();
       this.categoryNum = this.examCategory.length;
       this.activeName = 0;
+      axios.get('http://localhost:3000/single_r/'+this.paperId)
+        .then(res => {
+          console.log(res);
+        }).catch()
     },
     data(){
       return{
