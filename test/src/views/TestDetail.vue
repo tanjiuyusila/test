@@ -13,7 +13,7 @@
         </el-col>
 
       </el-header>
-      <el-main height='500px'>
+      <el-main height='500px' v-if="show">
           <Radio :index="nowIndex" v-if="radioShow" :select="select" :totalNum="categoryNum" :token_id="token_id" @plusOne="plusOne"></Radio>
           <Checkbox :index="nowIndex" :multiple="multiple" v-if="selectShow" :token_id="token_id" @plusOne="plusOne"></Checkbox>
           <AnswerArea :index="nowIndex" :program="program" v-if="programShow"></AnswerArea>
@@ -30,23 +30,34 @@
   import AnswerArea from '@/components/AnswerArea';
   export default {
     created(){
-      this.totalNum = this.select.length + this.program.length + this.multiple.length;
-      this.selectNum = this.select.length;
-      this.programNum = this.program.length;
-      this.multipleNum = this.multiple.length;
+      axios.get('http://localhost:3000/single_r/'+this.exec_id)
+        .then(res => {
+          // this.select = res.data;
+          // console.log(res.data);
+          this.select = res.data;
+          // console.log(this.select);
+          this.show = true
+        }).catch();
+      axios.get('http://localhost:3000/multiple_r/'+this.exec_id)
+        .then(res => {
+          this.multiple = res.data;
+          this.show = true
+        }).catch();
+      // this.totalNum = this.select.length + this.program.length + this.multiple.length;
+      // this.selectNum = this.select.length;
+      // this.programNum = this.program.length;
+      // this.multipleNum = this.multiple.length;
       this.nowTest = this.select;
       this.categoryNum = this.examCategory.length;
       this.activeName = 0;
       this.token_id=118118;
-      // axios.get('http://localhost:3000/single_r/'+this.exec_id)
-      //   .then(res => {
-      //     console.log(res);
-      //   }).catch()
+
     },
     data(){
       return{
         // radio : '',
         // currentView:1,
+        show :false,
         radioShow:true,
         selectShow:false,
         programShow:false,
@@ -82,45 +93,7 @@
           }
         ],
         */
-        select:[{
-          answer: "优",
-          answer_desc: "要选就选最好的",
-          choice_a: "优",
-          choice_b: "良",
-          choice_c: "中",
-          choice_d: "差",
-          exer_id: 1,
-          sc_id: 1,
-          title: "单选题第一道",
-        },{
-          answer: "好迪",
-          answer_desc: "好迪真好",
-          choice_a: "你好",
-          choice_b: "我好",
-          choice_c: "大家好",
-          choice_d: "好迪",
-          exer_id: 1,
-          sc_id: 2,
-          title: "单选题第二道",
-        },{answer: "北岛",
-          answer_desc: "卑鄙是卑鄙者的通行证",
-          choice_a: "食指",
-          choice_b: "海子",
-          choice_c: "卞之琳",
-          choice_d: "北岛",
-          exer_id: 1,
-          sc_id: 3,
-          title: "单选题第三道"},{
-          answer: "choice_b",
-          answer_desc: "春天，十个海子全部复活",
-          choice_a: "哈尔盖",
-          choice_b: "春天",
-          choice_c: "撒哈拉",
-          choice_d: "相信未来",
-          exer_id: 1,
-          sc_id: 4,
-          title: "单选题第四道"
-        }],
+        select:[],
         multiple:[
           {
             answer: "优",

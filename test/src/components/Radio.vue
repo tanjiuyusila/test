@@ -29,6 +29,7 @@
       this.selectNum=this.select.length;
       this.nowTest = this.select[0];
       this.changIndex();
+      console.log(this.select)
       // console.log(this.token_id);
     },
     data(){
