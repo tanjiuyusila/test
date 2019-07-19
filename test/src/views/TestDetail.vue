@@ -94,47 +94,7 @@
         ],
         */
         select:[],
-        multiple:[
-          {
-            answer: "优",
-            answer_desc: "要选就选最好的",
-            choice_a: "优",
-            choice_b: "良",
-            choice_c: "中",
-            choice_d: "差",
-            exer_id: 1,
-            mc_id: 1,
-            title: "多选题第一道",
-          },{
-            answer: "好迪",
-            answer_desc: "好迪真好",
-            choice_a: "你好",
-            choice_b: "我好",
-            choice_c: "大家好",
-            choice_d: "好迪",
-            exer_id: 1,
-            mc_id: 2,
-            title: "多选题第二道",
-          },{answer: "北岛",
-            answer_desc: "卑鄙是卑鄙者的通行证",
-            choice_a: "食指",
-            choice_b: "海子",
-            choice_c: "卞之琳",
-            choice_d: "北岛",
-            exer_id: 1,
-            mc_id: 3,
-            title: "多选题第三道"
-          },{
-            answer: "choice_b",
-            answer_desc: "春天，十个海子全部复活",
-            choice_a: "哈尔盖",
-            choice_b: "春天",
-            choice_c: "撒哈拉",
-            choice_d: "相信未来",
-            exer_id: 1,
-            mc_id: 4,
-            title: "多选题第四道"
-        }],
+        multiple:[],
         program:[
           {
             id:111,
