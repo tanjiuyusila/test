@@ -13,16 +13,15 @@
         </el-col>
       </el-header>
       <el-main height='500px' v-if="show">
-          <Radio :index="nowIndex" v-if="radioShow" :select="select" :token_id="token_id" @plusOne="plusOne"></Radio>
-          <Checkbox :index="nowIndex" :multiple="multiple" v-if="selectShow" :token_id="token_id" @plusOne="plusOne"></Checkbox>
-          <AnswerArea :index="nowIndex" :program="program" v-if="programShow"></AnswerArea>
+          <Radio v-if="radioShow" :select="select" :token_id="token_id" :totalNum="totalNum" @plusOne="plusOne"></Radio>
+          <Checkbox :multiple="multiple" v-if="selectShow" :token_id="token_id" :totalNum="totalNum" :selectNum="selectNum" @plusOne="plusOne"></Checkbox>
+          <AnswerArea :program="program" :token_id="token_id" v-if="programShow"></AnswerArea>
       </el-main>
       <el-footer>
         <el-col :span="6" :offset="18">
           <el-button type="primary" size="medium" plain @click="submitAnswer">提交</el-button>
         </el-col>
       </el-footer>
-
     </el-container>
   </div>
 </template>
@@ -35,23 +34,36 @@
   import { mapState } from 'vuex';
   export default {
     created(){
-      axios.get('http://localhost:3000/single_r/'+this.exec_id)
-        .then(res => {
-          this.select = res.data;
-          this.selectNum = this.select.length;
-          this.show = true
-        }).catch();
-      axios.get('http://localhost:3000/multiple_r/'+this.exec_id)
-        .then(res => {
-          this.multiple = res.data;
-          this.show = true
-          this.multipleNum = this.multiple.length;
-        }).catch();
-      this.totalNum = this.select.length + this.program.length + this.multiple.length;
-      this.selectNum = 0;
-      this.programNum = 0;
-      this.multipleNum = 0;
-      this.nowTest = this.select;
+      (async () => {
+        let radio = await this.requestP('http://localhost:3000/single_r/'+this.exec_id);
+        let select = await this.requestP('http://localhost:3000/multiple_r/'+this.exec_id);
+        let program = await this.requestP('http://localhost:3000/program_r/'+this.exec_id);
+        this.select = radio.data;
+        this.multiple = select.data;
+        this.program = program.data;
+        this.selectNum = this.select.length;
+        this.programNum = this.program.length;
+        this.multipleNum = this.multiple.length;
+        this.totalNum = this.select.length + this.program.length + this.multiple.length;
+        if(this.select.length > 0){
+          this.examCategory.push('单选题');
+        };
+        if(this.multiple.length > 0){
+          this.examCategory.push('多选题');
+        };
+        if(this.program.length > 0){
+          this.examCategory.push('编程题');
+        }
+        if(this.select.length > 0){
+          this.nowTest = this.select;
+        }else if(this.multiple.length > 0){
+          this.nowTest = this.multiple;
+        }else{
+          this.nowTest = this.program;
+        }
+        this.handleChange();
+        this.show = true;
+      })();
       this.categoryNum = this.examCategory.length;
       this.activeName = 0;
       this.token_id=118118;
@@ -66,57 +78,31 @@
         selectShow:false,
         programShow:false,
         exec_id:this.$route.params.id,
-        nowIndex:1,  //当前索引
+        // nowIndex:1,  //当前索引
         totalNum:0,  //题数量
         nowTest:{},
         select:[],
         multiple:[],
-        program:[
-          {
-            p_id:111,
-            title:'fill1',
-            content:"sdfghjkluytrdcvbnm",
-            html:'html....11',
-            css:'cssssss',
-            javascript:'jsjsjsjsjs',
-            exec_id:1
-          },
-          {
-            p_id:112,
-            title:'fill2',
-            content:"sdfghjkluytrdcvbnm2",
-            html:'html....22',
-            css:'cssssss22',
-            javascript:'jsjsjsjsjs22',
-            exec_id:1
-          },
-          {
-            p_id:113,
-            title:'fill3',
-            content:"sdfghjkluytrdcvbnm33",
-            html:'html....33',
-            css:'cssssss33',
-            javascript:'jsjsjsjsjs33',
-            exec_id:1
-          },{
-            p_id:114,
-            title:'fill4',
-            content:"sdfghjkluytrdcvbnm44",
-            html:'html....44',
-            css:'cssssss44',
-            javascript:'jsjsjsjsjs44',
-            exec_id:1
-          }
-        ],
-        examCategory:['单选题','多选题','编程题'],
+        program:[],
+        examCategory:[],
         activeName:0,
       }
     },
     methods:{
+      requestP(url) {
+        return new Promise(function(resolve, reject) {
+          axios(url).then( (res) => {
+            resolve(res);
+          });
+        });
+      },
       submitAnswer(){
         var sLength = this.radioData.length;
         var mLength = this.selectionData.length;
         var pLength = this.programData.length;
+        console.log(this.radioData);
+        console.log(this.selectionData);
+        console.log(this.programData);
         if(sLength+mLength+pLength < this.selectNum+this.programNum+this.multipleNum){
           console.log('没答完题');
           this.$message('请在作答全部习题之后提交答案');
@@ -125,8 +111,12 @@
         }
       },
       plusOne(){
-        this.activeName += 1;
-        this.handleChange();
+
+        // if( ){
+        //
+        // }
+          this.activeName += 1;
+          this.handleChange();
       },
       handleChange(tab, event) {
 
@@ -142,7 +132,6 @@
             break;
         }
       },
-
       changeToRadio(){
         this.radioShow=true;
         this.selectShow=false;

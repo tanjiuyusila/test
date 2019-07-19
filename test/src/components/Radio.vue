@@ -18,7 +18,7 @@
         </el-col>
       </el-radio-group>
     </el-row>
-    <el-button type="primary" @click="nextIndex">下一页</el-button>
+    <el-button type="primary" @click="nextIndex" :disabled="disabled">下一页</el-button>
   </div>
 </template>
 
@@ -29,8 +29,6 @@
       this.selectNum=this.select.length;
       this.nowTest = this.select[0];
       this.changIndex();
-      console.log(this.select)
-      // console.log(this.token_id);
     },
     data(){
       return{
@@ -39,14 +37,17 @@
         radioAnswer:'',
         nowIndex:1,
         nowTest:{},
+        disabled:false
       }
     },
     methods:{
       nextIndex(){
-
         if(this.nowIndex < this.selectNum){
           this.nowIndex ++ ;
           this.changIndex()
+          if(this.nowIndex == this.totalNum){
+            this.disabled = true;
+          }
         }else{
             this.$emit('plusOne');
         }
@@ -64,6 +65,11 @@
         if(this.nowData.length > 0){
           this.radio = this.nowData[0].user_answer;
         }
+        if(this.nowIndex == this.totalNum){
+          this.disabled = true;
+        }else{
+          this.disabled = false;
+        }
       },
     },
     computed:{
@@ -72,8 +78,8 @@
     props:[
       'select',
       'index',
-      'totalNum',
       'token_id',
+      'totalNum',
     ],
   }
 </script>

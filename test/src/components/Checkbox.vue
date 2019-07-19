@@ -15,7 +15,7 @@
         </el-col>
       </el-radio-group>
     </el-row>
-    <el-button type="primary" @click="nextIndex">下一页</el-button>
+    <el-button type="primary" @click="nextIndex" :disabled="disabled">下一页</el-button>
   </div>
 </template>
 
@@ -33,33 +33,24 @@
         nowTest:{},
         nowIndex:1,
         multipleNum:0,
-
+        disabled:false,
       }
     },
-    props:[
-      'index',
-      'multiple',
-      'token_id'
-    ],
     methods:{
       nextIndex(){
         if(this.nowIndex < this.multipleNum){
           this.nowIndex ++ ;
-          this.changIndex()
+          this.changIndex();
+          console.log(this.nowIndex);
+          console.log(this.selectNum);
+          console.log(this.totalNum);
+          if(this.nowIndex + this.selectNum == this.totalNum){
+            this.disabled = true;
+          }
         }else{
           this.$emit('plusOne');
         }
       },
-      // nextIndex(){
-      //   // console.log(this.nowIndex);
-      //   // console.log(this.multipleNum);
-      //   if(this.nowIndex < this.multipleNum){
-      //     this.nowIndex ++ ;
-      //     this.changIndex()
-      //   }else{
-      //     this.$emit('plusOne');
-      //   }
-      // },
       checkBoxChange(){
         // console.log(this.nowTest.mc_id);
         // console.log(this.checkList);
@@ -74,11 +65,23 @@
         if(this.nowData.length > 0){
           this.checkList = this.nowData[0].user_answer;
         }
+        if(this.nowIndex + this.selectNum == this.totalNum){
+          this.disabled = true;
+        }else{
+          this.disabled = false;
+        }
       },
     },
     computed:{
       ...mapState(['nowData'])
-    }
+    },
+    props:[
+      'index',
+      'multiple',
+      'token_id',
+      'selectNum',
+      'totalNum',
+    ],
   }
 </script>
 
