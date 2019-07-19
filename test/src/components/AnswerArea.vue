@@ -82,14 +82,23 @@
           this.inputHtml = this.nowData[0].html;
           this.inputCss = this.nowData[0].css;
           this.inputJavascript = this.nowData[0].javascript;
-
+        }
+        if(this.nowIndex < this.programNum){
+          this.disabled = false;
+        }else{
+          this.disabled = true;
         }
       },
       nextIndex(){
+        this.nowIndex ++ ;
+        console.log(this.nowIndex );
+        console.log(this.programNum );
         if(this.nowIndex < this.programNum){
           this.disabled = false;
-          this.nowIndex ++ ;
           this.changIndex();
+        }else{
+          this.changIndex();
+          this.disabled = true;
         }
       },
     },

@@ -13,9 +13,6 @@
         </el-col>
       </el-header>
       <el-main height='500px' v-if="show">
-          <!--<Radio :index="nowIndex" v-if="radioShow" :select="select" :token_id="token_id" @plusOne="plusOne"></Radio>-->
-          <!--<Checkbox :index="nowIndex" :multiple="multiple" v-if="selectShow" :token_id="token_id" @plusOne="plusOne"></Checkbox>-->
-          <!--<AnswerArea :index="nowIndex" :program="program" v-if="programShow"></AnswerArea> -->
           <Radio v-if="radioShow" :select="select" :token_id="token_id" @plusOne="plusOne"></Radio>
           <Checkbox :multiple="multiple" v-if="selectShow" :token_id="token_id" @plusOne="plusOne"></Checkbox>
           <AnswerArea :program="program" :token_id="token_id" v-if="programShow"></AnswerArea>
@@ -25,7 +22,6 @@
           <el-button type="primary" size="medium" plain @click="submitAnswer">提交</el-button>
         </el-col>
       </el-footer>
-
     </el-container>
   </div>
 </template>
@@ -38,29 +34,38 @@
   import { mapState } from 'vuex';
   export default {
     created(){
-      axios.get('http://localhost:3000/single_r/'+this.exec_id)
-        .then(res => {
-          this.select = res.data;
-          this.selectNum = this.select.length;
-          this.show = true
-        }).catch();
-      axios.get('http://localhost:3000/multiple_r/'+this.exec_id)
-        .then(res => {
-          this.multiple = res.data;
-          this.show = true;
-          this.multipleNum = this.multiple.length;
-        }).catch();
-      axios.get('http://localhost:3000/program_r/'+this.exec_id)
-        .then(res => {
-          this.program = res.data;
-          this.show = true;
-          this.programNum = this.program.length;
-        }).catch();
+      (async () => {
+        let radio = await this.requestP('http://localhost:3000/single_r/'+this.exec_id);
+        let select = await this.requestP('http://localhost:3000/multiple_r/'+this.exec_id);
+        let program = await this.requestP('http://localhost:3000/program_r/'+this.exec_id);
+        this.select = radio.data;
+        this.multiple = select.data;
+        this.program = program.data;
+        if(this.select.length > 0){
+          this.examCategory.push('单选题');
+        };
+        if(this.multiple.length > 0){
+          this.examCategory.push('多选题');
+        };
+        if(this.program.length > 0){
+          this.examCategory.push('编程题');
+        }
+        if(this.select.length > 0){
+          this.nowTest = this.select;
+        }else if(this.multiple.length > 0){
+          this.nowTest = this.multiple;
+        }else{
+          this.nowTest = this.program;
+        }
+        this.handleChange();
+        this.show = true;
+      })();
+
       this.totalNum = this.select.length + this.program.length + this.multiple.length;
       this.selectNum = 0;
       this.programNum = 0;
       this.multipleNum = 0;
-      this.nowTest = this.select;
+
       this.categoryNum = this.examCategory.length;
       this.activeName = 0;
       this.token_id=118118;
@@ -81,11 +86,18 @@
         select:[],
         multiple:[],
         program:[],
-        examCategory:['单选题','多选题','编程题'],
+        examCategory:[],
         activeName:0,
       }
     },
     methods:{
+      requestP(url) {
+        return new Promise(function(resolve, reject) {
+          axios(url).then( (res) => {
+            resolve(res);
+          });
+        });
+      },
       submitAnswer(){
         var sLength = this.radioData.length;
         var mLength = this.selectionData.length;
@@ -101,8 +113,12 @@
         }
       },
       plusOne(){
-        this.activeName += 1;
-        this.handleChange();
+
+        // if( ){
+        //
+        // }
+          this.activeName += 1;
+          this.handleChange();
       },
       handleChange(tab, event) {
 
@@ -118,7 +134,6 @@
             break;
         }
       },
-
       changeToRadio(){
         this.radioShow=true;
         this.selectShow=false;
