@@ -13,9 +13,12 @@
         </el-col>
       </el-header>
       <el-main height='500px' v-if="show">
-          <Radio :index="nowIndex" v-if="radioShow" :select="select" :token_id="token_id" @plusOne="plusOne"></Radio>
-          <Checkbox :index="nowIndex" :multiple="multiple" v-if="selectShow" :token_id="token_id" @plusOne="plusOne"></Checkbox>
-          <AnswerArea :index="nowIndex" :program="program" v-if="programShow"></AnswerArea>
+          <!--<Radio :index="nowIndex" v-if="radioShow" :select="select" :token_id="token_id" @plusOne="plusOne"></Radio>-->
+          <!--<Checkbox :index="nowIndex" :multiple="multiple" v-if="selectShow" :token_id="token_id" @plusOne="plusOne"></Checkbox>-->
+          <!--<AnswerArea :index="nowIndex" :program="program" v-if="programShow"></AnswerArea> -->
+          <Radio v-if="radioShow" :select="select" :token_id="token_id" @plusOne="plusOne"></Radio>
+          <Checkbox :multiple="multiple" v-if="selectShow" :token_id="token_id" @plusOne="plusOne"></Checkbox>
+          <AnswerArea :program="program" :token_id="token_id" v-if="programShow"></AnswerArea>
       </el-main>
       <el-footer>
         <el-col :span="6" :offset="18">
@@ -44,8 +47,14 @@
       axios.get('http://localhost:3000/multiple_r/'+this.exec_id)
         .then(res => {
           this.multiple = res.data;
-          this.show = true
+          this.show = true;
           this.multipleNum = this.multiple.length;
+        }).catch();
+      axios.get('http://localhost:3000/program_r/'+this.exec_id)
+        .then(res => {
+          this.program = res.data;
+          this.show = true;
+          this.programNum = this.program.length;
         }).catch();
       this.totalNum = this.select.length + this.program.length + this.multiple.length;
       this.selectNum = 0;
@@ -66,48 +75,12 @@
         selectShow:false,
         programShow:false,
         exec_id:this.$route.params.id,
-        nowIndex:1,  //当前索引
+        // nowIndex:1,  //当前索引
         totalNum:0,  //题数量
         nowTest:{},
         select:[],
         multiple:[],
-        program:[
-          {
-            p_id:111,
-            title:'fill1',
-            content:"sdfghjkluytrdcvbnm",
-            html:'html....11',
-            css:'cssssss',
-            javascript:'jsjsjsjsjs',
-            exec_id:1
-          },
-          {
-            p_id:112,
-            title:'fill2',
-            content:"sdfghjkluytrdcvbnm2",
-            html:'html....22',
-            css:'cssssss22',
-            javascript:'jsjsjsjsjs22',
-            exec_id:1
-          },
-          {
-            p_id:113,
-            title:'fill3',
-            content:"sdfghjkluytrdcvbnm33",
-            html:'html....33',
-            css:'cssssss33',
-            javascript:'jsjsjsjsjs33',
-            exec_id:1
-          },{
-            p_id:114,
-            title:'fill4',
-            content:"sdfghjkluytrdcvbnm44",
-            html:'html....44',
-            css:'cssssss44',
-            javascript:'jsjsjsjsjs44',
-            exec_id:1
-          }
-        ],
+        program:[],
         examCategory:['单选题','多选题','编程题'],
         activeName:0,
       }
@@ -117,6 +90,9 @@
         var sLength = this.radioData.length;
         var mLength = this.selectionData.length;
         var pLength = this.programData.length;
+        console.log(this.radioData);
+        console.log(this.selectionData);
+        console.log(this.programData);
         if(sLength+mLength+pLength < this.selectNum+this.programNum+this.multipleNum){
           console.log('没答完题');
           this.$message('请在作答全部习题之后提交答案');

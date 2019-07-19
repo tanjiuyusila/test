@@ -50,16 +50,6 @@
           this.$emit('plusOne');
         }
       },
-      // nextIndex(){
-      //   // console.log(this.nowIndex);
-      //   // console.log(this.multipleNum);
-      //   if(this.nowIndex < this.multipleNum){
-      //     this.nowIndex ++ ;
-      //     this.changIndex()
-      //   }else{
-      //     this.$emit('plusOne');
-      //   }
-      // },
       checkBoxChange(){
         // console.log(this.nowTest.mc_id);
         // console.log(this.checkList);
