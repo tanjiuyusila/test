@@ -24,7 +24,6 @@ exports.all_write = function(req,res,next){
    var answer_s = req.body.user_s_answer;
    var date_s = req.body.commit_s_date;
     // 多选
- 
     var mc = req.body.mc_id;
     var answer_m = req.body.user_m_answer;
     var date_m = req.body.commit_m_date;
@@ -48,16 +47,39 @@ exports.all_write = function(req,res,next){
     t_User_program_model.p_m_write(tocken,p,html,css,java,date_p,function(err,data){
         console.log(data);
     })
+
+    
 }
 
 
 exports.all_s_write = function(req,res,next){
     // 单选
-   var tocken = req.body.token_id;
-   var sc = req.body.sc_id;
-   var answer_s = req.body.user_s_answer;
-   var date_s = req.body.commit_s_date;
+    // var s_length= req.body.length;
+    // var a =req.body;
+    // req.body.forEach(function(val,index,bod){
+    //     var tocken = req.body[index].token_id;
+    //     var sc = req.body[index].sc_id;
+    //     var answer_s = req.body[index].user_s_answer;
+    //     var date_s = req.body[index].commit_s_date;
 
+    //      t_User_single_choice_model.s_m_write(tocken,sc,answer_s,date_s,function(err,data){
+    //         console.log(data);
+    //     });
+    // });
+
+    // var array = [1,2,3];
+
+    // array.forEach(function(v,i,a){
+    //         console.log(v);
+    //         console.log(i);
+    //         console.log(a);
+
+    // });
+    var tocken = req.body.token_id;
+    var sc = req.body.sc_id;
+    var answer_s = req.body.user_s_answer;
+    var date_s = req.body.commit_s_date;
+    // console.log(1111111111111111111111);
     t_User_single_choice_model.s_m_write(tocken,sc,answer_s,date_s,function(err,data){
         console.log(data);
     });
