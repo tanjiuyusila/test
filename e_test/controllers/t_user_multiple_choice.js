@@ -1,12 +1,5 @@
 var t_User_multiple_choice_model = require('../models/t_User_multiple_choice_model.js');
 
-exports.m_read = function(req,res,next){
-    res.render('SetTest.ejs');
-
-    t_User_multiple_choice_model.m_m_read(function(err,data){
-        console.log(data);
-    })
-}
 
 exports.m_write = function(req,res,next){
     var umc = req.body.umc_id;
