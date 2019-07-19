@@ -8,3 +8,6 @@ exports.s_read = function(req,res,next){
         // console.log(data);
     })
 };
+
+
+

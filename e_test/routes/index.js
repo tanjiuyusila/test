@@ -14,7 +14,10 @@ router.get('/', t_User.index);
 // router.post('/',t_User.sel);
 
 router.get('/single_r/:id',t_single_choice.s_read);
-router.post('/single_w',t_User_single_choice.s_write);
+
+router.post('/all_write',t_User_single_choice.all_write);
+
+router.post('/single_w/',t_User_single_choice.s_write);
 
 router.get('/multiple_r/:id',t_multiple_choice.m_read);
 router.post('/multiple_w',t_User_multiple_choice.m_write);

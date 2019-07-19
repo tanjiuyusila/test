@@ -9,10 +9,78 @@
     <p>Welcome to <%= title %></p>
 
 
-    <form action="/single_r" method="post">
+    <!-- <form action="/single_r" method="post">
       用户名：<input type="text" name="uname" id="u1"><br/>
       密码：<input type="password" name="pass"><br/>
       <input type="submit" name="sub" value="注册">
-  </form>
+  </form> -->
+
+
+
+  <!-- <form action="/single_r" method="post"> -->
+    <!-- <form action="/multiple_r" method="post"> -->
+      <!-- <form action="/program_r" method="post"> -->
+        <!-- 用户名：<input type="text" name="uname" id="u1"><br/>
+        密码：<input type="password" name="pass"><br/> -->
+        <!-- <input type="submit" name="sub" value="读取"> -->
+      </form>
+  
+  
+      <!-- 单选 -->
+      <!-- <form action="/single_w" method="post">
+  
+        usc_id:<input type="text" name="usc_id" id="u1"><br/>
+        token_id:<input type="text" name="token_id" id="u1"><br/>
+        sc_id<input type="text" name="sc_id" id="u1"><br/>
+        user_answer:<input type="text" name="user_answer" id="u1"><br/>
+        commit_date:<input type="text" name="commit_date" id="u1"><br/>
+        <input type="submit" name="sub" value="写入">
+      </form> -->
+  
+      <!-- 多选 -->
+      <!-- <form action="/multiple_w" method="post">
+  
+        umc_id:<input type="text" name="umc_id" id="u1"><br/>
+        token_id:<input type="text" name="token_id" id="u1"><br/>
+        mc_id<input type="text" name="mc_id" id="u1"><br/>
+        user_answer:<input type="text" name="user_answer" id="u1"><br/>
+        commit_date:<input type="text" name="commit_date" id="u1"><br/>
+        <input type="submit" name="sub" value="写入">
+      </form> -->
+  
+  
+      <!-- <form action="/program_w" method="post">
+  
+        up_id:<input type="text" name="up_id" id="u1"><br/>
+        token_id:<input type="text" name="token_id" id="u1"><br/>
+        p_id<input type="text" name="p_id" id="u1"><br/>
+        html:<input type="text" name="html" id="u1"><br/>
+        css:<input type="text" name="css" id="u1"><br/>
+        javascript:<input type="text" name="javascript" id="u1"><br/>
+        commit_date:<input type="text" name="commit_date" id="u1"><br/>
+        <input type="submit" name="sub" value="写入">
+      </form> -->
+
+      <form action="/all_write" method="post">
+        单选
+        <br/>
+        token_id:<input type="text" name="token_id" id="u1"><br/>
+        sc_id<input type="text" name="sc_id" id="u1"><br/>
+        user_answer:<input type="text" name="user_s_answer" id="u1"><br/>
+        commit_date:<input type="text" name="commit_s_date" id="u1"><br/>
+        <br/>
+        多选
+        mc_id<input type="text" name="mc_id" id="u1"><br/>
+        user_answer:<input type="text" name="user_m_answer" id="u1"><br/>
+        commit_date:<input type="text" name="commit_m_date" id="u1"><br/>
+        <br/>
+        编程
+        p_id<input type="text" name="p_id" id="u1"><br/>
+        html:<input type="text" name="html" id="u1"><br/>
+        css:<input type="text" name="css" id="u1"><br/>
+        javascript:<input type="text" name="javascript" id="u1"><br/>
+        commit_date:<input type="text" name="commit_p_date" id="u1"><br/>
+        <input type="submit" name="sub" value="写入">
+      </form>
   </body>
 </html>
