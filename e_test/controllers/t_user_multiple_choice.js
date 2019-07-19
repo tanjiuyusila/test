@@ -14,12 +14,22 @@ var t_User_multiple_choice_model = require('../models/t_User_multiple_choice_mod
 // }
 
 exports.all_m_write = function(req,res,next){
-    var token = req.body.token_id;
-    var mc = req.body.mc_id;
-    var answer_m = req.body.user_m_answer;
-    var date_m = req.body.commit_m_date;
-    
-    t_User_multiple_choice_model.m_m_write(token,mc,answer_m,date_m,function(err,data){
+    console.log(req.body);
+
+    req.body.forEach((val)=>{
+        var token = val.token_id;
+        var mc = val.mc_id;
+        var date_m = val.commit_date;
+        var a = val.user_answer;
+        var answer_m = a.join("|")
+        // console.log(a);
+ 
+        t_User_multiple_choice_model.m_m_write(token,mc,answer_m,date_m,function(err,data){
         console.log(data);
-    })
+        })
+    });
+
+    
+    
+    
 }

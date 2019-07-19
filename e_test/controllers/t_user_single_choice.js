@@ -1,4 +1,4 @@
-var t_User_single_choice_model = require('../models/t_User_single_choice_model.js');
+var t_User_single_choice_model = require('../models/t_user_single_choice_model.js');
 var t_User_multiple_choice_model = require('../models/t_User_multiple_choice_model.js');
 var t_User_program_model = require('../models/t_user_program_model');
 
@@ -54,34 +54,19 @@ exports.all_write = function(req,res,next){
 
 exports.all_s_write = function(req,res,next){
     // 单选
-    // var s_length= req.body.length;
-    // var a =req.body;
-    // req.body.forEach(function(val,index,bod){
-    //     var tocken = req.body[index].token_id;
-    //     var sc = req.body[index].sc_id;
-    //     var answer_s = req.body[index].user_s_answer;
-    //     var date_s = req.body[index].commit_s_date;
+   
+    console.log(req.body+'body');
 
-    //      t_User_single_choice_model.s_m_write(tocken,sc,answer_s,date_s,function(err,data){
-    //         console.log(data);
-    //     });
-    // });
+    req.body.forEach((val,index,bod)=>{
+        
+        var token = val.token_id;
+        var sc = val.sc_id;
+        var answer_s = val.user_answer;
+        var date_s = val.commit_date;
 
-    // var array = [1,2,3];
-
-    // array.forEach(function(v,i,a){
-    //         console.log(v);
-    //         console.log(i);
-    //         console.log(a);
-
-    // });
-    var tocken = req.body.token_id;
-    var sc = req.body.sc_id;
-    var answer_s = req.body.user_s_answer;
-    var date_s = req.body.commit_s_date;
-    // console.log(1111111111111111111111);
-    t_User_single_choice_model.s_m_write(tocken,sc,answer_s,date_s,function(err,data){
-        console.log(data);
+        t_User_single_choice_model.s_m_write(token,sc,answer_s,date_s,function(err,data){
+            console.log(data);
+        });
     });
 }
 
