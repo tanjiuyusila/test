@@ -38,7 +38,6 @@
       this.categoryNum = this.examCategory.length;
       this.activeName = 0;
       this.token_id=118118;
-      // console.log(this.exec_id)
       // axios.get('http://localhost:3000/single_r/'+this.exec_id)
       //   .then(res => {
       //     console.log(res);
