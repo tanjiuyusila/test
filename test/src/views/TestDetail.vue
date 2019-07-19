@@ -13,8 +13,8 @@
         </el-col>
       </el-header>
       <el-main height='500px' v-if="show">
-          <Radio v-if="radioShow" :select="select" :token_id="token_id" @plusOne="plusOne"></Radio>
-          <Checkbox :multiple="multiple" v-if="selectShow" :token_id="token_id" @plusOne="plusOne"></Checkbox>
+          <Radio v-if="radioShow" :select="select" :token_id="token_id" :totalNum="totalNum" @plusOne="plusOne"></Radio>
+          <Checkbox :multiple="multiple" v-if="selectShow" :token_id="token_id" :totalNum="totalNum" :selectNum="selectNum" @plusOne="plusOne"></Checkbox>
           <AnswerArea :program="program" :token_id="token_id" v-if="programShow"></AnswerArea>
       </el-main>
       <el-footer>
@@ -41,6 +41,10 @@
         this.select = radio.data;
         this.multiple = select.data;
         this.program = program.data;
+        this.selectNum = this.select.length;
+        this.programNum = this.program.length;
+        this.multipleNum = this.multiple.length;
+        this.totalNum = this.select.length + this.program.length + this.multiple.length;
         if(this.select.length > 0){
           this.examCategory.push('单选题');
         };
@@ -60,12 +64,6 @@
         this.handleChange();
         this.show = true;
       })();
-
-      this.totalNum = this.select.length + this.program.length + this.multiple.length;
-      this.selectNum = 0;
-      this.programNum = 0;
-      this.multipleNum = 0;
-
       this.categoryNum = this.examCategory.length;
       this.activeName = 0;
       this.token_id=118118;
