@@ -22,8 +22,8 @@ export default new Vuex.Store({
       }
     },
     searchSelect(state,id){
-      var a = state.selectionData.filter((elem,index) => elem.sc_id == id) ;
-      // console.log(a,222);
+      var a = state.selectionData.filter((elem,index) => elem.mc_id == id) ;
+      // console.log(state.selectionData);
       state.nowData = a;
       // console.log(state.nowData)
       state.nowData = a;
@@ -50,14 +50,19 @@ export default new Vuex.Store({
       console.log(state.radioData);
     },
     saveCheckbox(state,data){
-      var a = state.selectionData.filter((elem,index) => elem.sc_id == data.sc_id);
+      // console.log(data);
+      var a = state.selectionData.filter((elem,index) => elem.mc_id == data.mc_id);
+      // console.log(a);
       if(a.length == 0){
         state.selectionData.push(data);
+        // console.log(state.selectionData);
       }else{
         state.selectionData.forEach((elem,index) => {
-          if(elem.sc_id == data.sc_id){
+          if(elem.mc_id == data.mc_id){
+            // console.log(elem.user_answer)
             elem.user_answer = data.user_answer;
             elem.commit_date = new Date();
+            // console.log(elem.user_answer)
           }
           if(elem.user_answer.length == 0){
             state.selectionData.splice(index,1);
@@ -72,6 +77,7 @@ export default new Vuex.Store({
       commit('searchAnswer',id)
     },
     searchSelect({commit},id){
+      // console.log(id);
       commit('searchSelect',id)
     },
     saveRadio({commit},[...args]){
@@ -79,6 +85,7 @@ export default new Vuex.Store({
       var data = {
         sc_id :args[0],
         user_answer:args[1],
+        token_id:args[2],
         commit_date:new Date()
       };
       // console.log(data);
@@ -87,8 +94,9 @@ export default new Vuex.Store({
     saveCheckbox({commit},[...args]){
       // console.log(args);
       var data = {
-        sc_id :args[0],
+        mc_id :args[0],
         user_answer:args[1],
+        token_id:args[2],
         commit_date:new Date()
       };
       // console.log(data);
