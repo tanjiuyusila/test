@@ -3,7 +3,7 @@
 
     <el-container class="container" style="height: 500px; border: 1px solid #eee">
       <el-header>
-        <el-col :span="6">套题{{this.paperId}}</el-col>
+        <el-col :span="6">套题{{this.exec_id}}</el-col>
         <el-col :span="12" :offset="6">
 
           <el-radio-group v-model="activeName" @change="handleChange">
@@ -13,9 +13,9 @@
         </el-col>
 
       </el-header>
-      <el-main height='500px'>
-          <Radio :index="nowIndex" v-if="radioShow" :select="select" :totalNum="categoryNum" @plusOne="plusOne"></Radio>
-          <Checkbox :index="nowIndex" :multiple="multiple" v-if="selectShow" @plusOne="plusOne"></Checkbox>
+      <el-main height='500px' v-if="show">
+          <Radio :index="nowIndex" v-if="radioShow" :select="select" :totalNum="categoryNum" :token_id="token_id" @plusOne="plusOne"></Radio>
+          <Checkbox :index="nowIndex" :multiple="multiple" v-if="selectShow" :token_id="token_id" @plusOne="plusOne"></Checkbox>
           <AnswerArea :index="nowIndex" :program="program" v-if="programShow"></AnswerArea>
       </el-main>
 
@@ -30,29 +30,42 @@
   import AnswerArea from '@/components/AnswerArea';
   export default {
     created(){
-      this.totalNum = this.select.length + this.program.length + this.multiple.length;
-      this.selectNum = this.select.length;
-      this.programNum = this.program.length;
-      this.multipleNum = this.multiple.length;
+      axios.get('http://localhost:3000/single_r/'+this.exec_id)
+        .then(res => {
+          // this.select = res.data;
+          // console.log(res.data);
+          this.select = res.data;
+          // console.log(this.select);
+          this.show = true
+        }).catch();
+      axios.get('http://localhost:3000/multiple_r/'+this.exec_id)
+        .then(res => {
+          this.multiple = res.data;
+          this.show = true
+        }).catch();
+      // this.totalNum = this.select.length + this.program.length + this.multiple.length;
+      // this.selectNum = this.select.length;
+      // this.programNum = this.program.length;
+      // this.multipleNum = this.multiple.length;
       this.nowTest = this.select;
       this.categoryNum = this.examCategory.length;
       this.activeName = 0;
-      axios.get('http://localhost:3000/single_r/'+this.paperId)
-        .then(res => {
-          console.log(res);
-        }).catch()
+      this.token_id=118118;
+
     },
     data(){
       return{
         // radio : '',
         // currentView:1,
+        show :false,
         radioShow:true,
         selectShow:false,
         programShow:false,
-        paperId:this.$route.params.id,
+        exec_id:this.$route.params.id,
         nowIndex:1,  //当前索引
         totalNum:0,  //题数量
         nowTest:{},
+        /* 原select
         select:[
           {
             id:11,
@@ -79,30 +92,9 @@
             options:['aaaa','bbbb','ccc','dddd']
           }
         ],
-        multiple:[
-          {
-            id:21,
-            flag:2,
-            title:'多选题1XXXXXXXXXX',
-            options:['aaaa','bbbb','ccc','dddd']
-          },
-           {
-            id:31,
-            flag:2,
-            title:'多选题2XXXXXXXXXX',
-            options:['aaaa','bbbb','ccc','dddd']
-          }, {
-            id:41,
-            flag:2,
-            title:'多选题3XXXXXXXXXX',
-            options:['aaaa','bbbb','ccc','dddd']
-          }, {
-            id:51,
-            flag:2,
-            title:'多选题4XXXXXXXXXX',
-            options:['aaaa','bbbb','ccc','dddd']
-          },
-        ],
+        */
+        select:[],
+        multiple:[],
         program:[
           {
             id:111,

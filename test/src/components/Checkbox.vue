@@ -3,7 +3,10 @@
     <h1>{{nowIndex}}.多选题</h1>
     <span>{{nowTest.title}}</span>
     <el-checkbox-group v-model="checkList" >
-      <el-checkbox :label="index" v-for="(option,index) in nowTest.options" :key=index @change="checkBoxChange">{{option}}</el-checkbox>
+      <el-checkbox :label="0" @change="checkBoxChange">{{nowTest.choice_a}}</el-checkbox>
+      <el-checkbox :label="1" @change="checkBoxChange">{{nowTest.choice_b}}</el-checkbox>
+      <el-checkbox :label="2" @change="checkBoxChange">{{nowTest.choice_c}}</el-checkbox>
+      <el-checkbox :label="3" @change="checkBoxChange">{{nowTest.choice_d}}</el-checkbox>
     </el-checkbox-group>
     <el-row>
       <el-radio-group v-model="nowIndex" @change="changIndex()">
@@ -30,11 +33,13 @@
         nowTest:{},
         nowIndex:1,
         multipleNum:0,
+
       }
     },
     props:[
       'index',
       'multiple',
+      'token_id'
     ],
     methods:{
       nextIndex(){
@@ -45,25 +50,27 @@
           this.$emit('plusOne');
         }
       },
-      nextIndex(){
-        // console.log(this.nowIndex);
-        // console.log(this.multipleNum);
-        if(this.nowIndex < this.multipleNum){
-          this.nowIndex ++ ;
-          this.changIndex()
-        }else{
-          this.$emit('plusOne');
-        }
-      },
+      // nextIndex(){
+      //   // console.log(this.nowIndex);
+      //   // console.log(this.multipleNum);
+      //   if(this.nowIndex < this.multipleNum){
+      //     this.nowIndex ++ ;
+      //     this.changIndex()
+      //   }else{
+      //     this.$emit('plusOne');
+      //   }
+      // },
       checkBoxChange(){
-        this.$store.dispatch('saveCheckbox',[this.nowTest.id,this.checkList]);
+        // console.log(this.nowTest.mc_id);
+        // console.log(this.checkList);
+        this.$store.dispatch('saveCheckbox',[this.nowTest.mc_id,this.checkList,this.token_id]);
+        // console.log(this.selectData)
       },
       changIndex(){
         this.checkList=[];
         this.nowTest = this.multiple[this.nowIndex-1];
-        // console.log(this.nowIndex);
-        this.$store.dispatch('searchSelect',[this.nowTest.id]);
-        console.log(this.nowData);
+        this.$store.dispatch('searchSelect',[this.nowTest.mc_id]);
+        // console.log(this.nowData);
         if(this.nowData.length > 0){
           this.checkList = this.nowData[0].user_answer;
         }
