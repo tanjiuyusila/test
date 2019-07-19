@@ -34,15 +34,12 @@ export default new Vuex.Store({
     },
     searchProgram(state,id){
       var a = state.programData.filter((elem,index) => elem.p_id == id) ;
-      // console.log(a);
       state.nowData = a;
       if(a.length > 0){
-        // console.log('search');
         state.nowData = a;
       }
     },
     saveRadio(state,data){
-      // console.log(data);
       var a = state.radioData.filter((elem,index) => elem.sc_id == data.sc_id);
       // console.log(a);
       if(a.length == 0){
