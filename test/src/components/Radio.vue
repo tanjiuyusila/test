@@ -1,24 +1,35 @@
 <template>
-  <div>
-    <h1>{{nowIndex}}.单选题</h1>
-    <div>
-      <span>{{nowTest.title}}</span>
-      <el-radio-group v-model="radio" >
-        <!--<el-radio :label="index" v-for="(option,index) in nowTest.options" :key=index @change="radioChange()">{{option}}</el-radio>-->
-        <el-radio label="0" @change="radioChange()">{{nowTest.choice_a}}</el-radio>
-        <el-radio label="1" @change="radioChange()">{{nowTest.choice_b}}</el-radio>
-        <el-radio label="2" @change="radioChange()">{{nowTest.choice_c}}</el-radio>
-        <el-radio label="3" @change="radioChange()">{{nowTest.choice_d}}</el-radio>
-      </el-radio-group>
-    </div>
-    <el-row>
-      <el-radio-group v-model="nowIndex" @change="changIndex()">
-        <el-col :span="6" class="testRow" v-for="index in selectNum" :key=index>
-          <el-radio-button :label="index" fill>{{index}}</el-radio-button>
-        </el-col>
-      </el-radio-group>
-    </el-row>
-    <el-button type="primary" @click="nextIndex" :disabled="disabled">下一页</el-button>
+  <div style="height:600px">
+    <el-container>
+      <el-aside width="200px">
+        <el-row>
+          <el-radio-group v-model="nowIndex" @change="changIndex()" size="medium">
+            <el-col :span="6" class="testRow" v-for="index in selectNum" :key=index>
+              <el-radio-button :label="index" fill>{{index}}</el-radio-button>
+            </el-col>
+          </el-radio-group>
+        </el-row>
+        <el-button type="primary" @click="nextIndex" :disabled="disabled">下一页</el-button>
+      </el-aside>
+      <el-main style="font-size: 30px;height:600px;line-height:100px">
+        <h1>{{nowIndex}}.单选题</h1>
+        <div style="font-size: 30px">
+          <div>{{nowTest.title}}</div>
+          <el-radio-group v-model="radio">
+
+              <el-radio label="0" @change="radioChange()" size="medium" style="display:block">{{nowTest.choice_a}}</el-radio>
+
+              <el-radio label="1" @change="radioChange()" size="medium" style="display:block">{{nowTest.choice_b}}</el-radio>
+
+              <el-radio label="2" @change="radioChange()" size="medium" style="display:block">{{nowTest.choice_c}}</el-radio>
+
+              <el-radio label="3" @change="radioChange()" size="medium" style="display:block">{{nowTest.choice_d}}</el-radio>
+
+          </el-radio-group>
+        </div>
+      </el-main>
+
+    </el-container>
   </div>
 </template>
 
