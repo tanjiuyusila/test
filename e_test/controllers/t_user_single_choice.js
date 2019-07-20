@@ -17,46 +17,89 @@ var t_User_program_model = require('../models/t_user_program_model');
 //     });    
 // }
 
+
 exports.all_write = function(req,res,next){
-    // 单选
-   var tocken = req.body.token_id;
-   var sc = req.body.sc_id;
-   var answer_s = req.body.user_s_answer;
-   var date_s = req.body.commit_s_date;
-    // 多选
-    var mc = req.body.mc_id;
-    var answer_m = req.body.user_m_answer;
-    var date_m = req.body.commit_m_date;
+    // console.log(req.body);
 
-    // 编程
- 
-    var p = req.body.p_id;
-    var html = req.body.html;
-    var css = req.body.css;
-    var java = req.body.javascript;
-    var date_p = req.body.commit_p_date;
+    var s_arr = req.body[0];
+    var m_arr = req.body[1];
+    var p_arr = req.body[2];
 
-    t_User_single_choice_model.s_m_write(tocken,sc,answer_s,date_s,function(err,data){
-        console.log(data);
+    var all_L = s_arr.length + m_arr.length + p_arr.length;
+    var ret_L = 0;
+
+    s_arr.forEach((val)=>{
+        var token = val.token_id;
+        var sc = val.sc_id;
+        var s_a = val.user_answer;
+        console.log('S_a的值');
+        
+        console.log(s_a);
+            if(s_a == 0){
+                s_a = 'a';
+            }else if(s_a == 1){
+                s_a = 'b';
+            }else if(s_a == 2){
+                s_a = 'c';
+            }else{
+                s_a = 'd';
+            }
+
+console.log(s_a);
+        var answer_s = s_a;
+        var date_s = val.commit_date;
+
+        t_User_single_choice_model.s_m_write(token,sc,answer_s,date_s,function(err,data){
+            // console.log(data);
+            ret_L++;
+        });
     });
 
-    t_User_multiple_choice_model.m_m_write(tocken,mc,answer_m,date_m,function(err,data){
-        console.log(data);
-    })
+    m_arr.forEach((val)=>{
+        var token = val.token_id;
+        var mc = val.mc_id;
+        var date_m = val.commit_date;
+        var a = val.user_answer;
+        var b = [];
+        a.forEach((l)=>{
+            if(l == 0){
+                b.push('a')
+            }else if(l == 1){
+                b.push('b')
+            }else if(l == 2){
+                b.push('c')
+            }else{
+                b.push('d')
+            }
+        });
+        var answer_m = b.join("|")
+        t_User_multiple_choice_model.m_m_write(token,mc,answer_m,date_m,function(err,data){
+        ret_L++;
+        })
+    });
 
-    t_User_program_model.p_m_write(tocken,p,html,css,java,date_p,function(err,data){
-        console.log(data);
-    })
+    p_arr.forEach((val)=>{
+        var token = val.token_id;
+        var p = val.p_id;
+        var html = val.html;
+        var css = val.css;
+        var java = val.javascript;
+        var date_p = val.commit_date;
 
-    
+        t_User_program_model.p_m_write(token,p,html,css,java,date_p,function(err,data){
+            ret_L++;
+        })
+    });
+    if(this.all_l == this.ret_L){
+        console.log('提交完成');
+        res.json({code:200});
+    }
 }
 
 
 exports.all_s_write = function(req,res,next){
     // 单选
-   
     console.log(req.body+'body');
-
     req.body.forEach((val,index,bod)=>{
         
         var token = val.token_id;

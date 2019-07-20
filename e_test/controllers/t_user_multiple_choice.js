@@ -15,6 +15,7 @@ var t_User_multiple_choice_model = require('../models/t_User_multiple_choice_mod
 
 exports.all_m_write = function(req,res,next){
     console.log(req.body);
+    console.log('trytry');
 
     req.body.forEach((val)=>{
         var token = val.token_id;
