@@ -13,9 +13,13 @@
       </el-radio-group>
     </el-row>
     <el-button type="primary" @click="nextIndex" :disabled="disabled">下一页</el-button>
-    <el-input v-model="inputHtml" placeholder="html" @blur="saveHtml"></el-input>
-    <el-input v-model="inputCss" placeholder="css" @blur="saveCss"></el-input>
-    <el-input v-model="inputJavascript" placeholder="js" @blur="saveJs"></el-input>
+    <el-button type="primary" @click="saveFinal">保存答案</el-button>
+    <!--<el-input v-model="inputHtml" placeholder="html" @blur="saveHtml"></el-input>-->
+    <!--<el-input v-model="inputCss" placeholder="css" @blur="saveCss"></el-input>-->
+    <!--<el-input v-model="inputJavascript" placeholder="js" @blur="saveJs"></el-input>-->
+    <el-input v-model="inputHtml" placeholder="html"></el-input>
+    <el-input v-model="inputCss" placeholder="css"></el-input>
+    <el-input v-model="inputJavascript" placeholder="js"></el-input>
   </div>
 </template>
 
@@ -31,7 +35,7 @@
       this.changIndex();
     },
     mounted () {
-      // console.log(this.$refs.iframe.contentWindow);
+      // console.log(this.$refs.iframe.contentWindow.document);
       // var a = document.getElementById('preview');
     },
     data(){
@@ -47,15 +51,15 @@
       }
     },
     methods:{
-      saveHtml(){
-          this.$store.dispatch('saveHtml',[this.token_id,this.nowTest.p_id,this.inputHtml]);
-      },
-      saveCss(){
-          this.$store.dispatch('saveCss',[this.token_id,this.nowTest.p_id,this.inputCss]);
-      },
-      saveJs(){
-          this.$store.dispatch('saveJs',[this.token_id,this.nowTest.p_id,this.inputJavascript]);
-      },
+      // saveHtml(){
+      //     this.$store.dispatch('saveHtml',[this.token_id,this.nowTest.p_id,this.inputHtml]);
+      // },
+      // saveCss(){
+      //     this.$store.dispatch('saveCss',[this.token_id,this.nowTest.p_id,this.inputCss]);
+      // },
+      // saveJs(){
+      //     this.$store.dispatch('saveJs',[this.token_id,this.nowTest.p_id,this.inputJavascript]);
+      // },
       getEditor(){
         // var iframe = document.getElementById('myFrame');
         // if (iframe.attachEvent) {
@@ -69,14 +73,23 @@
         // }
 
       },
+      saveFinal(){
+        this.$store.dispatch('saveHtml',[this.token_id,this.nowTest.p_id,this.inputHtml]);
+        this.$store.dispatch('saveCss',[this.token_id,this.nowTest.p_id,this.inputCss]);
+        this.$store.dispatch('saveJs',[this.token_id,this.nowTest.p_id,this.inputJavascript]);
+        // console.log(this.programData);
+      },
       changIndex(){
+        // this.$store.dispatch('saveHtml',[this.token_id,this.nowTest.p_id,this.inputHtml]);
+        // this.$store.dispatch('saveCss',[this.token_id,this.nowTest.p_id,this.inputCss]);
+        // this.$store.dispatch('saveJs',[this.token_id,this.nowTest.p_id,this.inputJavascript]);
         this.nowTest = this.program[this.nowIndex-1];
         this.inputHtml = '';
         this.inputCss = '';
         this.inputJavascript = '';
         this.$store.dispatch('searchProgram',[this.nowTest.p_id]);
         if(this.nowData.length > 0){
-          this.programData = this.nowData[0]
+          this.programData = this.nowData[0];
           // console.log(this.programData)
           // console.log(this.nowData);
           this.inputHtml = this.nowData[0].html;
