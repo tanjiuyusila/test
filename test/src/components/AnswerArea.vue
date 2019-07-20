@@ -34,10 +34,6 @@
       this.inputJavascript='';
       this.changIndex();
     },
-    mounted () {
-      // console.log(this.$refs.iframe.contentWindow.document);
-      // var a = document.getElementById('preview');
-    },
     data(){
       return {
         nowIndex:1,
@@ -60,19 +56,6 @@
       // saveJs(){
       //     this.$store.dispatch('saveJs',[this.token_id,this.nowTest.p_id,this.inputJavascript]);
       // },
-      getEditor(){
-        // var iframe = document.getElementById('myFrame');
-        // if (iframe.attachEvent) {
-        //   iframe.attachEvent("onload", function () {
-        //     console.log(iframe.contentWindow.document.body.innerHTML);
-        //   });
-        // } else {
-        //   iframe.onload = function () {
-        //     console.log(iframe.contentWindow.document.body.innerHTML);
-        //   };
-        // }
-
-      },
       saveFinal(){
         this.$store.dispatch('saveHtml',[this.token_id,this.nowTest.p_id,this.inputHtml]);
         this.$store.dispatch('saveCss',[this.token_id,this.nowTest.p_id,this.inputCss]);
