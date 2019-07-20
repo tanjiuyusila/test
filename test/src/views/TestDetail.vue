@@ -86,6 +86,7 @@
         program:[],
         examCategory:[],
         activeName:0,
+        allData:[],
       }
     },
     methods:{
@@ -107,14 +108,34 @@
           console.log('没答完题');
           this.$message('请在作答全部习题之后提交答案');
         }else{
-          console.log('答完啦')
+          console.log('答完啦');
+
+            this.allData.push(this.radioData);
+            this.allData.push(this.selectionData);
+            this.allData.push(this.programData);
+
+          console.log(this.allData);
+          axios.post('http://localhost:3000/all_write',this.allData)
+            .then(res => {
+              console.log(res);
+            }).catch(err => {
+              console.log(err)
+          });
+          // axios.post('http://localhost:3000/all_m_write',this.selectionData)
+          //   .then(res => {
+          //     res.json(res);
+          //   }).catch(err => {
+          //   console.log(err)
+          // });
+          // axios.post('http://localhost:3000/all_p_write',this.programData)
+          //   .then(res => {
+          //     res.json(res);
+          //   }).catch(err => {
+          //   console.log(err)
+          // })
         }
       },
       plusOne(){
-
-        // if( ){
-        //
-        // }
           this.activeName += 1;
           this.handleChange();
       },
