@@ -2,38 +2,47 @@
 <el-col :span="24">
   <div style="height:500px;">
     <el-container >
-     
 
-      <el-main style="font-size: 30px;height:500px;line-height:30px">
-        <h1>{{nowIndex}}.单选题</h1>
-        <span style="font-size: 20px;line-height:20px">{{nowTest.title}}</span>
-        <div style="font-size: 30px">
-          <el-row :gutter="20">
+
+      <el-main style="height:500px;line-height:30px;text-align:justify">
+        <el-row>
+          <el-col :span="6">
+            <div style="font-size: 20px;margin:0 0 10px 0">{{nowIndex}}.单选题</div>
+          </el-col>
+        </el-row>
+
+
+        <div style="font-size: 20px;line-height:20px" class="addPadding">{{nowTest.title}}</div>
+        <div style="font-size: 30px;margin-top:40px;background-color:#f8f9fb">
+          <el-row :gutter="20" >
             <el-col :span="2" :offset="1">
-              
+
               <el-radio-group v-model="radio">
 
-                <el-row :gutter="20" style="height:64.8px;line-height:60px">
+                <el-row :gutter="20" style="line-height:60px">
                   <el-col :span="2" :offset="1">
-                    <el-radio label="0" @change="radioChange()" size="medium" style="font-size: 20px;line-height:20px">{{nowTest.choice_a}}</el-radio>
+                    <el-radio label="0" @change="radioChange()" size="medium" style="line-height:60px">{{nowTest.choice_a}}</el-radio>
                   </el-col>
-                </el-row> 
+                </el-row>
+
+
+
+                <el-row :gutter="20" style="height:64.8px;line-height:60px" >
+                  <el-col :span="2" :offset="1">
+                    <el-radio label="1" @change="radioChange()" size="medium" style="line-height:60px">{{nowTest.choice_b}}</el-radio>
+                  </el-col>
+                </el-row>
+
 
                 <el-row :gutter="20" style="height:64.8px;line-height:60px">
                   <el-col :span="2" :offset="1">
-                    <el-radio label="1" @change="radioChange()" size="medium">{{nowTest.choice_b}}</el-radio>
+                    <el-radio label="2" @change="radioChange()" size="medium" style="line-height:60px">{{nowTest.choice_c}}</el-radio>
                   </el-col>
                 </el-row>
 
                 <el-row :gutter="20" style="height:64.8px;line-height:60px">
                   <el-col :span="2" :offset="1">
-                    <el-radio label="2" @change="radioChange()" size="medium">{{nowTest.choice_c}}</el-radio>
-                  </el-col>
-                </el-row>
-
-                <el-row :gutter="20" style="height:64.8px;line-height:60px">
-                  <el-col :span="2" :offset="1">
-                    <el-radio label="3" @change="radioChange()" size="medium">{{nowTest.choice_d}}</el-radio>
+                    <el-radio label="3" @change="radioChange()" size="medium" style="line-height:60px">{{nowTest.choice_d}}</el-radio>
                   </el-col>
                 </el-row>
 
@@ -49,7 +58,7 @@
               </el-radio-group>
             </el-col>
 
-          </el-row> 
+          </el-row>
 
         </div>
       </el-main>
@@ -79,7 +88,7 @@
     </el-container>
   </div>
 </el-col>
-  
+
 </template>
 
 <script>
@@ -152,8 +161,8 @@
   margin:20px auto;
   /* background: #ff0036; */
 }
-  
-  
+
+
   .el-aside {
     /* background-color: #D3DCE6; */
     /* background-color: #b0ecc1; */
@@ -161,7 +170,7 @@
     text-align: center;
     /* line-height: 200px; */
   }
-  
+
   .el-main {
     /* background-color: #b0ecc1; */
     /* background-color: #E9EEF3; */
@@ -171,5 +180,9 @@
     width: 800px;
     height: 600px;
 
+  }
+  .addPadding{
+    padding:15px;
+    background-color:#f8f9fb
   }
 </style>

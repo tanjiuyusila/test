@@ -192,13 +192,13 @@
 }
 
 .el-header{
-  background-color: #b0f09f;
+  background-color: #ccc;
   color: #333;
   text-align: center;
   line-height: 60px;
 }
 .el-footer{
-  background-color: #b0f09f;
+  background-color: #ccc;
   color: #333;
   text-align: center;
   line-height: 60px;
