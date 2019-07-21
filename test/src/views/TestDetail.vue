@@ -2,7 +2,7 @@
   <div>
 
     <el-container class="container" style="border: 1px solid #eee;font-size: 30px">
-      <el-header>
+      <el-header style="wigth:800px">
         <el-col :span="6">套题{{this.exec_id}}</el-col>
         <el-col :span="12" :offset="6">
 
@@ -12,7 +12,7 @@
 
         </el-col>
       </el-header>
-      <el-main height='600px' v-if="show">
+      <el-main height='600px' v-if="show" style="wigth:800px">
           <Radio v-if="radioShow" :select="select" :token_id="token_id" :totalNum="totalNum" @plusOne="plusOne"></Radio>
           <Checkbox :multiple="multiple" v-if="selectShow" :token_id="token_id" :totalNum="totalNum" :selectNum="selectNum" @plusOne="plusOne"></Checkbox>
           <AnswerArea :program="program" :token_id="token_id" v-if="programShow"></AnswerArea>
@@ -115,12 +115,12 @@
             this.allData.push(this.programData);
 
           console.log(this.allData);
-          // axios.post('http://localhost:3000/all_write',this.allData)
-          //   .then(res => {
-          //     console.log(res);
-          //   }).catch(err => {
-          //     console.log(err)
-          // });
+          axios.post('http://localhost:3000/all_write',this.allData)
+            .then(res => {
+              console.log(res);
+            }).catch(err => {
+              console.log(err)
+          });
           // axios.post('http://localhost:3000/all_m_write',this.selectionData)
           //   .then(res => {
           //     res.json(res);
@@ -182,32 +182,23 @@
 
 <style scoped>
 .container{
-  height: 800px;
-  /*width: 1000px;*/
+  height: 700px;
+  width: 800px;
   margin:20px auto;
-  /*background: #cccccc;*/
 }
 .el-aside {
-  background-color: #D3DCE6;
   color: #333;
-  /*text-align: center;*/
-  /*line-height: 200px;*/
   padding:20px 0;
 }
-.el-main {
-  background-color: #E9EEF3;
-  color: #333;
-  /*text-align: center;*/
-  /*line-height: 160px;*/
-}
+
 .el-header{
-  background-color: #ccc;
+  background-color: #b0f09f;
   color: #333;
   text-align: center;
   line-height: 60px;
 }
 .el-footer{
-  background-color: #ccc;
+  background-color: #b0f09f;
   color: #333;
   text-align: center;
   line-height: 60px;
