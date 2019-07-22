@@ -7,7 +7,7 @@
       </div>
       <el-row :gutter="20" >
 
-        <router-link v-for="(paper, index) in testSummary" :key="index" :to="'/test/testDetail/'+paper.id">
+        <router-link v-for="(paper, index) in testSummary" :key="index" :to="'/testDetail/'+paper.id">
           <el-col :span="6" class="testRow">
             <el-card :body-style="{ padding: '0px' }">
               <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
