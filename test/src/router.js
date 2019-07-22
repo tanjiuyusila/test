@@ -27,11 +27,11 @@ export default new Router({
           name: 'setTest',
           component: SetTest
         },
-        {
-          path: 'singleTest',
-          name: 'singleTest',
-          component: SingleTest
-        },
+        // {
+        //   path: 'singleTest',
+        //   name: 'singleTest',
+        //   component: SingleTest
+        // },
         {
           path: 'testDetail/:id',
           name: 'testDetail',
