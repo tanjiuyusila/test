@@ -29,9 +29,9 @@ router.get('/program_r/:id',t_program.p_read);
 router.post('/all_write',t_User_single_choice.all_write);
 
 // 前端（学生端）写入分端口
-router.post('/all_s_write',t_User_single_choice.all_s_write);
-router.post('/all_m_write',t_User_multiple_choice.all_m_write);
-router.post('/all_p_write',t_User_program.all_p_write);
+// router.post('/all_s_write',t_User_single_choice.all_s_write);
+// router.post('/all_m_write',t_User_multiple_choice.all_m_write);
+// router.post('/all_p_write',t_User_program.all_p_write);
 
 
 // router.post('/single_w/',t_User_single_choice.s_write);

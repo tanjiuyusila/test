@@ -25,16 +25,12 @@ exports.all_write = function(req,res,next){
     var m_arr = req.body[1];
     var p_arr = req.body[2];
 
-    var all_L = s_arr.length + m_arr.length + p_arr.length;
+    var all_l = s_arr.length + m_arr.length + p_arr.length;
     var ret_L = 0;
-
     s_arr.forEach((val)=>{
         var token = val.token_id;
         var sc = val.sc_id;
         var s_a = val.user_answer;
-        console.log('S_a的值');
-        
-        console.log(s_a);
             if(s_a == 0){
                 s_a = 'a';
             }else if(s_a == 1){
@@ -44,14 +40,25 @@ exports.all_write = function(req,res,next){
             }else{
                 s_a = 'd';
             }
-
-console.log(s_a);
         var answer_s = s_a;
-        var date_s = val.commit_date;
+        // var date_s = val.commit_date;
 
-        t_User_single_choice_model.s_m_write(token,sc,answer_s,date_s,function(err,data){
+        t_User_single_choice_model.singleFind(token,sc,function(err,data){
+            
             // console.log(data);
-            ret_L++;
+            // console.log(data.length);
+            if(data.length > 0 ){
+                t_User_single_choice_model.singleUpdate(answer_s,token,sc,function(err,data){
+                    // console.log(data);
+                    ret_L++;
+                })
+            }else{
+                t_User_single_choice_model.s_m_write(token,sc,answer_s,function(err,data){
+                    // t_User_single_choice_model.s_m_write(token,sc,answer_s,date_s,function(err,data){
+                    // console.log(data);
+                    ret_L++;
+                });
+            }
         });
     });
 
@@ -73,9 +80,21 @@ console.log(s_a);
             }
         });
         var answer_m = b.join("|")
-        t_User_multiple_choice_model.m_m_write(token,mc,answer_m,date_m,function(err,data){
-        ret_L++;
-        })
+        t_User_multiple_choice_model.multipleFind(token,mc,function(err,data){
+            // console.log(data);
+            // console.log(data.length);
+            if(data.length > 0 ){
+                t_User_multiple_choice_model.multipleUpdate(answer_m,token,mc,function(err,data){
+                    // console.log(data);
+                    ret_L++;
+                })
+            }else{
+                t_User_multiple_choice_model.m_m_write(token,mc,answer_m,function(err,data){
+                    // console.log(data);
+                    ret_L++;
+                })
+            }
+        });
     });
 
     p_arr.forEach((val)=>{
@@ -85,14 +104,41 @@ console.log(s_a);
         var css = val.css;
         var java = val.javascript;
         var date_p = val.commit_date;
+        
+        t_User_program_model.programFind(token,p,function(err,data){
+            // console.log(data);
+            // console.log(data.length);
+            if(data.length > 0 ){
+                ret_L++;
 
-        t_User_program_model.p_m_write(token,p,html,css,java,date_p,function(err,data){
-            ret_L++;
-        })
+                t_User_program_model.programUpdateHtml(html,token,p,function(err,data){
+                    // console.log(data);
+                    // ret_L++;
+                });
+                t_User_program_model.programUpdateCss(css,token,p,function(err,data){
+                    // console.log(data);
+                    // ret_L++;
+                });
+                t_User_program_model.programUpdateJava(java,token,p,function(err,data){
+                    // console.log(data);
+                    // ret_L++;
+                })
+            }else{
+                t_User_program_model.p_m_write(token,p,html,css,java,function(err,data){
+                    ret_L++;
+                })
+            }
+        });
+
+
+        
     });
     if(this.all_l == this.ret_L){
         console.log('提交完成');
         res.json({code:200});
+    }else{
+        console.log('提交失败');
+        res.json({code:404});
     }
 }
 
@@ -112,4 +158,6 @@ exports.all_s_write = function(req,res,next){
         });
     });
 }
+
+
 
