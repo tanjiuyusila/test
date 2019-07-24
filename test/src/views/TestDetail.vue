@@ -19,7 +19,7 @@
       </el-main>
       <el-footer>
         <el-col :span="6" :offset="18">
-          <el-button type="primary" size="medium" plain @click="submitAnswer">提交</el-button>
+          <el-button type="primary" size="medium" plain @click="submitAnswer" :disabled="disabled">提交</el-button>
         </el-col>
       </el-footer>
     </el-container>
@@ -44,6 +44,7 @@
         this.selectNum = this.select.length;
         this.programNum = this.program.length;
         this.multipleNum = this.multiple.length;
+        this.disabled=false,
         this.totalNum = this.select.length + this.program.length + this.multiple.length;
         if(this.select.length > 0){
           this.examCategory.push('单选题');
@@ -87,6 +88,7 @@
         examCategory:[],
         activeName:0,
         allData:[],
+        disabled:false,
       }
     },
     methods:{
@@ -115,24 +117,17 @@
             this.allData.push(this.programData);
 
           console.log(this.allData);
-          // axios.post('http://localhost:3000/all_write',this.allData)
-          //   .then(res => {
-          //     console.log(res);
-          //   }).catch(err => {
-          //     console.log(err)
-          // });
-          // axios.post('http://localhost:3000/all_m_write',this.selectionData)
-          //   .then(res => {
-          //     res.json(res);
-          //   }).catch(err => {
-          //   console.log(err)
-          // });
-          // axios.post('http://localhost:3000/all_p_write',this.programData)
-          //   .then(res => {
-          //     res.json(res);
-          //   }).catch(err => {
-          //   console.log(err)
-          // })
+          axios.post('http://localhost:3000/all_write',this.allData)
+            .then(res => {
+              console.log(res);
+              if(res.data.code == 200){
+                this.disabled = true;
+              }else{
+                this.$message('提交失败，请重新提交');
+              }
+            }).catch(err => {
+              console.log(err)
+          });
         }
       },
       plusOne(){
