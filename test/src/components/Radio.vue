@@ -92,7 +92,7 @@
 </template>
 
 <script>
-  import{mapState,mapGetters} from 'vuex';
+  import{mapState} from 'vuex';
   export default {
     created(){
       this.selectNum=this.select.length;
@@ -149,7 +149,7 @@
       'index',
       'token_id',
       'totalNum',
-    ],
+    ]
   }
 </script>
 

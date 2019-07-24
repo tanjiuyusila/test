@@ -12,7 +12,7 @@
 
         </el-col>
       </el-header>
-      <el-main height='600px' v-if="show" style="wigth:800px">
+      <el-main height='600px' v-if="show" >
           <Radio v-if="radioShow" :select="select" :token_id="token_id" :totalNum="totalNum" @plusOne="plusOne"></Radio>
           <Checkbox :multiple="multiple" v-if="selectShow" :token_id="token_id" :totalNum="totalNum" :selectNum="selectNum" @plusOne="plusOne"></Checkbox>
           <AnswerArea :program="program" :token_id="token_id" v-if="programShow"></AnswerArea>
@@ -115,12 +115,12 @@
             this.allData.push(this.programData);
 
           console.log(this.allData);
-          axios.post('http://localhost:3000/all_write',this.allData)
-            .then(res => {
-              console.log(res);
-            }).catch(err => {
-              console.log(err)
-          });
+          // axios.post('http://localhost:3000/all_write',this.allData)
+          //   .then(res => {
+          //     console.log(res);
+          //   }).catch(err => {
+          //     console.log(err)
+          // });
           // axios.post('http://localhost:3000/all_m_write',this.selectionData)
           //   .then(res => {
           //     res.json(res);
@@ -183,7 +183,7 @@
 <style scoped>
 .container{
   height: 700px;
-  width: 800px;
+  width: 100%;
   margin:20px auto;
 }
 .el-aside {
