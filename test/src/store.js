@@ -48,7 +48,7 @@ export default new Vuex.Store({
         state.radioData.forEach((elem,index) => {
           if(elem.sc_id == data.sc_id){
             elem.user_answer = data.user_answer;
-            elem.commit_date = new Date();
+            // elem.commit_date = new Date();
           }
         })
       }
@@ -66,7 +66,7 @@ export default new Vuex.Store({
           if(elem.mc_id == data.mc_id){
             // console.log(elem.user_answer)
             elem.user_answer = data.user_answer;
-            elem.commit_date = new Date();
+            // elem.commit_date = new Date();
             // console.log(elem.user_answer)
           }
           if(elem.user_answer.length == 0){
@@ -85,7 +85,7 @@ export default new Vuex.Store({
         state.programData.forEach((elem,index) => {
             if(elem.p_id == data.p_id){
               elem.html = data.html;
-              elem.commit_date = new Date();
+              // elem.commit_date = new Date();
             }
             // console.log((elem.html == "") && (elem.css == "") && (elem.javascript == ""));
             if((elem.html == "") && (elem.css == "") && (elem.javascript == "")){
@@ -104,7 +104,7 @@ export default new Vuex.Store({
         state.programData.forEach((elem,index) => {
           if(elem.p_id == data.p_id){
             elem.css = data.css;
-            elem.commit_date = new Date();
+            // elem.commit_date = new Date();
           }
           // console.log((elem.html == "") && (elem.css == "") && (elem.javascript == ""));
           if((elem.html == "") && (elem.css == "") && (elem.javascript == "")){
@@ -122,7 +122,7 @@ export default new Vuex.Store({
         state.programData.forEach((elem,index) => {
           if(elem.p_id == data.p_id){
             elem.javascript = data.javascript;
-            elem.commit_date = new Date();
+            // elem.commit_date = new Date();
           }
           if((elem.html == "") && (elem.css == "") && (elem.javascript == "")){
             state.programData.splice(index,1);
@@ -145,7 +145,7 @@ export default new Vuex.Store({
         sc_id :args[0],
         user_answer:args[1],
         token_id:args[2],
-        commit_date:new Date()
+        // commit_date:new Date()
       };
       // console.log(data);
       commit('saveRadio',data);
@@ -156,7 +156,7 @@ export default new Vuex.Store({
         mc_id :args[0],
         user_answer:args[1],
         token_id:args[2],
-        commit_date:new Date()
+        // commit_date:new Date()
       };
       // console.log(data);
       commit('saveCheckbox',data);
@@ -167,7 +167,7 @@ export default new Vuex.Store({
         token_id :args[0],
         p_id:args[1],
         html:args[2],
-        commit_date:new Date(),
+        // commit_date:new Date(),
         css:'',
         javascript:'',
       };
@@ -180,7 +180,7 @@ export default new Vuex.Store({
         token_id :args[0],
         p_id:args[1],
         css:args[2],
-        commit_date:new Date(),
+        // commit_date:new Date(),
         javascript:'',
         html:'',
       };
@@ -192,7 +192,7 @@ export default new Vuex.Store({
         token_id :args[0],
         p_id:args[1],
         javascript:args[2],
-        commit_date:new Date(),
+        // commit_date:new Date(),
         html:'',
         css:'',
       };

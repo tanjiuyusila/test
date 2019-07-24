@@ -19,9 +19,9 @@
 
               <el-radio-group v-model="radio">
 
-                <el-row :gutter="20" style="line-height:60px">
+                <el-row :gutter="20" style="line-height:60px;width:100%">
                   <el-col :span="2" :offset="1">
-                    <el-radio label="0" @change="radioChange()" size="medium" style="line-height:60px">{{nowTest.choice_a}}</el-radio>
+                    <el-radio label="0" @change="radioChange()" size="medium" style="line-height:60px;display: block;width:1200px">{{nowTest.choice_a}}</el-radio>
                   </el-col>
                 </el-row>
 
@@ -29,20 +29,20 @@
 
                 <el-row :gutter="20" style="height:64.8px;line-height:60px" >
                   <el-col :span="2" :offset="1">
-                    <el-radio label="1" @change="radioChange()" size="medium" style="line-height:60px">{{nowTest.choice_b}}</el-radio>
+                    <el-radio label="1" @change="radioChange()" size="medium" style="line-height:60px;display: block;width:1200px">{{nowTest.choice_b}}</el-radio>
                   </el-col>
                 </el-row>
 
 
                 <el-row :gutter="20" style="height:64.8px;line-height:60px">
                   <el-col :span="2" :offset="1">
-                    <el-radio label="2" @change="radioChange()" size="medium" style="line-height:60px">{{nowTest.choice_c}}</el-radio>
+                    <el-radio label="2" @change="radioChange()" size="medium" style="line-height:60px;display: block;width:1200px">{{nowTest.choice_c}}</el-radio>
                   </el-col>
                 </el-row>
 
                 <el-row :gutter="20" style="height:64.8px;line-height:60px">
                   <el-col :span="2" :offset="1">
-                    <el-radio label="3" @change="radioChange()" size="medium" style="line-height:60px">{{nowTest.choice_d}}</el-radio>
+                    <el-radio label="3" @change="radioChange()" size="medium" style="line-height:60px;display: block;width:1200px">{{nowTest.choice_d}}</el-radio>
                   </el-col>
                 </el-row>
 
@@ -92,7 +92,7 @@
 </template>
 
 <script>
-  import{mapState,mapGetters} from 'vuex';
+  import{mapState} from 'vuex';
   export default {
     created(){
       this.selectNum=this.select.length;
@@ -149,7 +149,7 @@
       'index',
       'token_id',
       'totalNum',
-    ],
+    ]
   }
 </script>
 

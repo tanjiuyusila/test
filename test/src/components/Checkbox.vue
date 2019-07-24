@@ -21,28 +21,28 @@
               <el-row :gutter="20" style="line-height:60px">
               <!-- <el-row :gutter="20"> -->
                 <el-col :span="2" :offset="1">
-                    <el-checkbox :label="0" @change="checkBoxChange">{{nowTest.choice_a}}</el-checkbox>
+                    <el-checkbox :label="0" @change="checkBoxChange" style="display: block;width:1200px">{{nowTest.choice_a}}</el-checkbox>
                 </el-col>
               </el-row>
 
               <el-row :gutter="20" style="height:64.8px;line-height:60px">
               <!-- <el-row :gutter="20"> -->
                 <el-col :span="2" :offset="1">
-                  <el-checkbox :label="1" @change="checkBoxChange">{{nowTest.choice_b}}</el-checkbox>
+                  <el-checkbox :label="1" @change="checkBoxChange" style="display: block;width:1200px">{{nowTest.choice_b}}</el-checkbox>
                 </el-col>
               </el-row>
 
               <el-row :gutter="20" style="height:64.8px;line-height:60px">
               <!-- <el-row :gutter="20" > -->
                 <el-col :span="2" :offset="1">
-                  <el-checkbox :label="2" @change="checkBoxChange">{{nowTest.choice_c}}</el-checkbox>
+                  <el-checkbox :label="2" @change="checkBoxChange" style="display: block;width:1200px">{{nowTest.choice_c}}</el-checkbox>
                 </el-col>
               </el-row>
 
               <el-row :gutter="20" style="height:64.8px;line-height:60px">
               <!-- <el-row :gutter="20"> -->
                 <el-col :span="2" :offset="1">
-                  <el-checkbox :label="3" @change="checkBoxChange">{{nowTest.choice_d}}</el-checkbox>
+                  <el-checkbox :label="3" @change="checkBoxChange" style="display: block;width:1200px">{{nowTest.choice_d}}</el-checkbox>
                 </el-col>
               </el-row>
 
